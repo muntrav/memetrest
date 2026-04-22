@@ -29,11 +29,13 @@ vi.mock("next/link", () => ({
 }));
 
 vi.mock("next/navigation", () => ({
+  usePathname: () => "/",
   useRouter: () => ({
     back: vi.fn(),
     prefetch: vi.fn(),
     push: vi.fn(),
     refresh: vi.fn()
   }),
+  useSearchParams: () => new URLSearchParams(),
   redirect: vi.fn()
 }));

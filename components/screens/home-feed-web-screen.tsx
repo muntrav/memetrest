@@ -182,13 +182,13 @@ export function HomeFeedWebScreen() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredCards = useMemo(() => {
-    if (!searchQuery.trim()) {
+    const query = searchQuery.trim().toLowerCase();
+
+    if (!query) {
       return cards;
     }
-    const query = searchQuery.toLowerCase();
-    return cards.filter((card) =>
-      card.alt.toLowerCase().includes(query)
-    );
+
+    return cards.filter((card) => card.alt.toLowerCase().includes(query));
   }, [searchQuery]);
 
   return (
@@ -253,7 +253,9 @@ export function HomeFeedWebScreen() {
         {filteredCards.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-20">
             <MaterialIcon className="text-6xl text-zinc-300">search_off</MaterialIcon>
-            <p className="mt-4 text-lg text-zinc-500">No memes found for "{searchQuery}"</p>
+            <p className="mt-4 text-lg text-zinc-500">
+              No memes found for <span className="font-semibold text-zinc-700">{searchQuery}</span>
+            </p>
           </div>
         ) : (
           <div className="[column-count:2] gap-4 md:[column-count:3] lg:[column-count:4] 2xl:[column-count:5]">

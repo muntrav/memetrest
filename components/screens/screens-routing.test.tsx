@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { CollectionsScreen } from "@/components/screens/collections-screen";
 import { HomeFeedMobileScreen } from "@/components/screens/home-feed-mobile-screen";
@@ -93,6 +93,30 @@ describe("screen routing", () => {
       /confused cartoon cat with vibrant neon colors/i
     );
     expect(image.closest("a")).toHaveAttribute("href", routes.detail);
+  });
+
+  it("filters desktop home cards with the inline search field", () => {
+    render(<HomeFeedWebScreen />);
+
+    fireEvent.change(screen.getByPlaceholderText(/search for memes, stickers, or creators/i), {
+      target: { value: "mountain" }
+    });
+
+    expect(screen.getByAltText(/majestic mountain peak at sunset/i)).toBeInTheDocument();
+    expect(
+      screen.queryByAltText(/whimsical orange tabby cat sitting on a plush velvet sofa/i)
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows the mobile empty state when search has no matches", () => {
+    render(<HomeFeedMobileScreen />);
+
+    fireEvent.change(screen.getByPlaceholderText(/search memes/i), {
+      target: { value: "not-a-real-meme" }
+    });
+
+    expect(screen.getByText(/no memes found for/i)).toBeInTheDocument();
+    expect(screen.getByText("not-a-real-meme")).toBeInTheDocument();
   });
 
   it("links collections boards to the detail route", () => {

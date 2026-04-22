@@ -1,54 +1,115 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { getNavigationProgressStartEvent } from "@/lib/navigation-progress";
 
 export function NavigationProgress() {
   const pathname = usePathname();
+  const routeKey = pathname;
   const [isVisible, setIsVisible] = useState(false);
   const [progress, setProgress] = useState(0);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const startTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pendingRouteRef = useRef(routeKey);
+  const currentRouteRef = useRef(routeKey);
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout;
-    let intervalId: NodeJS.Timeout;
+    currentRouteRef.current = routeKey;
+  }, [routeKey]);
 
-    // Start progress bar when pathname changes
-    setIsVisible(true);
-    setProgress(10);
+  useEffect(() => {
+    function clearTimers() {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
 
-    intervalId = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 90) return prev;
-        return prev + Math.random() * 30;
-      });
-    }, 500);
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+        hideTimeoutRef.current = null;
+      }
 
-    // Complete progress bar after a delay
-    timeoutId = setTimeout(() => {
-      setProgress(100);
+      if (startTimeoutRef.current) {
+        clearTimeout(startTimeoutRef.current);
+        startTimeoutRef.current = null;
+      }
+    }
 
-      const hideTimeoutId = setTimeout(() => {
-        setIsVisible(false);
-        setProgress(0);
-      }, 300);
+    function startProgress() {
+      clearTimers();
+      pendingRouteRef.current = currentRouteRef.current;
+      setIsVisible(true);
+      setProgress(14);
 
-      return () => {
-        clearTimeout(hideTimeoutId);
-      };
-    }, 800);
+      intervalRef.current = setInterval(() => {
+        setProgress((current) => {
+          if (current >= 88) {
+            return current;
+          }
+
+          return Math.min(current + 12, 88);
+        });
+      }, 120);
+    }
+
+    function handleHistoryNavigation() {
+      startTimeoutRef.current = setTimeout(startProgress, 0);
+    }
+
+    const startEvent = getNavigationProgressStartEvent();
+
+    window.addEventListener(startEvent, startProgress);
+    window.addEventListener("popstate", handleHistoryNavigation);
 
     return () => {
-      clearTimeout(timeoutId);
-      clearInterval(intervalId);
+      clearTimers();
+      window.removeEventListener(startEvent, startProgress);
+      window.removeEventListener("popstate", handleHistoryNavigation);
     };
-  }, [pathname]);
+  }, []);
 
-  if (!isVisible) return null;
+  useEffect(() => {
+    if (!isVisible) {
+      return;
+    }
+
+    if (pendingRouteRef.current === routeKey) {
+      return;
+    }
+
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
+    setProgress(100);
+
+    hideTimeoutRef.current = setTimeout(() => {
+      setIsVisible(false);
+      hideTimeoutRef.current = null;
+      setProgress(0);
+    }, 180);
+
+    return () => {
+      if (hideTimeoutRef.current) {
+        clearTimeout(hideTimeoutRef.current);
+        hideTimeoutRef.current = null;
+      }
+    };
+  }, [isVisible, routeKey]);
+
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <div
-      className="fixed top-0 left-0 z-[9999] h-1 bg-gradient-to-r from-primary via-primary-container to-secondary transition-all duration-300"
+      aria-hidden="true"
+      className="fixed left-0 top-0 z-[9999] h-1 bg-gradient-to-r from-primary via-primary-container to-secondary transition-[width,opacity] duration-200"
       style={{
+        opacity: isVisible ? 1 : 0,
         width: `${progress}%`
       }}
     />

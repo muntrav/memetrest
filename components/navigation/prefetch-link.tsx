@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { emitNavigationProgressStart } from "@/lib/navigation-progress";
 import type { RoutePath } from "@/lib/routes";
 
 type PrefetchLinkProps = Omit<ComponentPropsWithoutRef<typeof Link>, "href"> & {
@@ -12,6 +13,7 @@ type PrefetchLinkProps = Omit<ComponentPropsWithoutRef<typeof Link>, "href"> & {
 
 export function PrefetchLink({
   href,
+  onClick,
   onMouseEnter,
   onFocus,
   onTouchStart,
@@ -19,6 +21,7 @@ export function PrefetchLink({
   ...props
 }: PrefetchLinkProps) {
   const router = useRouter();
+  const pathname = usePathname();
 
   function warmRoute() {
     router.prefetch(href);
@@ -28,6 +31,21 @@ export function PrefetchLink({
     <Link
       {...props}
       href={href}
+      onClick={(event) => {
+        if (
+          !event.defaultPrevented &&
+          event.button === 0 &&
+          !event.metaKey &&
+          !event.ctrlKey &&
+          !event.altKey &&
+          !event.shiftKey &&
+          pathname !== href
+        ) {
+          emitNavigationProgressStart();
+        }
+
+        onClick?.(event);
+      }}
       onFocus={(event) => {
         warmRoute();
         onFocus?.(event);
