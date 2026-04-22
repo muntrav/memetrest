@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { CollectionsScreen } from "@/components/screens/collections-screen";
-import { listCachedBoards } from "@/lib/collections/cache";
-import { normalizeCollectionFilter } from "@/lib/collections/types";
+import { Suspense } from "react";
+import { CollectionsContent } from "@/components/screens/collections-content";
+import { RouteLoadingScreen } from "@/components/ui/route-loading-screen";
 
 export const metadata: Metadata = {
   title: "Memetrest - Collections"
@@ -13,10 +13,21 @@ type CollectionsPageProps = {
   }>;
 };
 
-export default async function CollectionsPage({ searchParams }: CollectionsPageProps) {
+export default async function CollectionsPage({
+  searchParams
+}: CollectionsPageProps) {
   const resolvedSearchParams = await searchParams;
-  const filter = normalizeCollectionFilter(resolvedSearchParams.filter);
-  const snapshot = await listCachedBoards(filter);
 
-  return <CollectionsScreen boards={snapshot.boards} filter={snapshot.filter} summary={snapshot.summary} />;
+  return (
+    <Suspense
+      fallback={
+        <RouteLoadingScreen
+          accent="from-primary-container/50 via-white to-secondary/20"
+          title="Loading collections"
+        />
+      }
+    >
+      <CollectionsContent filterQuery={resolvedSearchParams.filter} />
+    </Suspense>
+  );
 }

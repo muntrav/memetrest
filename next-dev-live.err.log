@@ -154,3 +154,5 @@ Import trace for requested module:
   path: 'D:\\Projects\\memetrest\\.next\\fallback-build-manifest.json'
 }
  ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'D:\Projects\memetrest\.next\cache\webpack\client-development\1.pack.gz_' -> 'D:\Projects\memetrest\.next\cache\webpack\client-development\1.pack.gz'

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import type { ReactNode } from "react";
 import { RouteWarmup } from "@/components/navigation/route-warmup";
+import { NavigationProgress } from "@/components/ui/navigation-progress";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -33,6 +34,7 @@ export default function RootLayout({
         className={`${plusJakartaSans.variable} light min-h-screen bg-background font-body-md text-on-background`}
         suppressHydrationWarning
       >
+        <NavigationProgress />
         <RouteWarmup />
         {children}
       </body>
