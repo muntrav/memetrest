@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Memetrest - Infinite Memes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffafd3",
+                        "tertiary": "#a12e70",
+                        "on-secondary-fixed": "#001a42",
+                        "outline": "#7e7385",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#85145a",
+                        "on-surface-variant": "#4d4354",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed-variant": "#004395",
+                        "tertiary-container": "#c0488a",
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-primary-fixed": "#2c0051",
+                        "tertiary-fixed": "#ffd8e7",
+                        "on-primary-container": "#fffbff",
+                        "surface": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-low": "#eff4ff",
+                        "primary-container": "#9c48ea",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "secondary": "#0058be",
+                        "primary": "#8127cf",
+                        "outline-variant": "#cfc2d6",
+                        "on-surface": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-container": "#2170e4",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#f0dbff",
+                        "surface-container-high": "#dce9ff",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-primary": "#ddb7ff",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#fffbff",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#842bd2",
+                        "on-tertiary-fixed": "#3d0026",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-container": "#fefcff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "margin-desktop": "32px",
+                        "base": "8px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-xl": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "display-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 16px;
+            padding: 16px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-blur {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background selection:bg-primary-fixed">
+<!-- Top Navigation Anchor -->
+<header class="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl docked full-width top-0 sticky z-50 border-b border-white/20 dark:border-zinc-800/50 shadow-[0_8px_32px_rgba(168,85,247,0.08)]">
+<div class="flex justify-between items-center px-4 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-base">
+<span class="text-2xl font-black tracking-tighter text-purple-600 dark:text-purple-400 bg-clip-text">Memetrest</span>
+</div>
+<div class="flex-1 px-4">
+<div class="relative flex items-center group">
+<span class="material-symbols-outlined absolute left-3 text-zinc-400 group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface-container-low border-none rounded-full font-body-md text-on-surface focus:ring-2 focus:ring-primary/20 placeholder:text-zinc-500 glass-blur" placeholder="Search memes..." type="text"/>
+</div>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed hover:scale-105 transition-transform duration-200 cursor-pointer">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a friendly smiling young man with clean features against a soft blue studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoj2x6FIvFxgeHJZeoT-ou0ARCNt8ymh4LZ894llMqVc4QFAzQPA0IzHurbTn_qW2gWKUuldxi1pzSRjk89N5o-OPZI29zYOYgZeZnHElXf-gzswrlQI6ciyLjGNj233OSA6ohh_S3tjmx7tU_ny80WklpxfjMZzqoVGEEF5OAx_cs92YsfLHNuCqg5forN87ULeMBAbrQjWB4kUU_xxS5hYshFrHiHmewYYgbkoEotG4jebajmMG8ShBcHE6GoR777T1AxRRR6bhK"/>
+</div>
+</div>
+</header>
+<!-- Category Tabs -->
+<nav class="sticky top-16 bg-white/80 backdrop-blur-xl z-40 py-sm overflow-x-auto no-scrollbar border-b border-surface-variant/30">
+<div class="flex items-center gap-sm px-margin-mobile min-w-max">
+<button class="px-md py-xs rounded-full bg-primary text-on-primary font-label-sm shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95">Trending</button>
+<button class="px-md py-xs rounded-full bg-surface-container-high text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Stickers</button>
+<button class="px-md py-xs rounded-full bg-surface-container-high text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Reaction Memes</button>
+<button class="px-md py-xs rounded-full bg-surface-container-high text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Dark Humor</button>
+<button class="px-md py-xs rounded-full bg-surface-container-high text-on-surface-variant font-label-sm hover:bg-surface-variant transition-colors">Wholesome</button>
+</div>
+</nav>
+<!-- Masonry Feed -->
+<main class="max-w-7xl mx-auto pb-24">
+<div class="masonry-grid">
+<!-- Card 1 -->
+<div class="relative group rounded-xl overflow-hidden bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300">
+<img alt="Meme" class="w-full object-cover aspect-[3/4]" data-alt="Funny colorful digital illustration of a confused cartoon cat with vibrant neon colors and expressive eyes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWLLaLrNmdcOH5uN-QEspmSvhyEUHxx8XM0mOvRlwEb-rrhqyd5q873uaPt2wmTYX5BP2i6_TljiK0a6W8kx_2PR8DvAzeajpnQkr7ZN0DceLUpqHdOjdYhdsevIL_ekBv7fvj-02fXyFT_KON89T0uCsBRaqYStWyZ_gQivAcWt19jBgEWSvZNNbfCKtfWjX2CbsZ9Zoke6TuGj1Kc6OHzKkvHUiiZcsSvosTSXR7N7We7_eaAtTc2PtVnOqEUomonKI_j4PspQtn"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-base">
+<div class="flex justify-between items-center">
+<div class="flex gap-xs">
+<button class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/40 transition-colors">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+<button class="px-3 py-1 rounded-full bg-primary text-white font-label-sm">Save</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="relative group rounded-xl overflow-hidden bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300">
+<img alt="Meme" class="w-full object-cover aspect-[1/1]" data-alt="Vibrant abstract gradient artwork with swirling shades of purple, magenta and cyan reflecting a digital high-dopamine aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsGVXOLz0pMYDiuD44QpRDWak4DEEOtg24rmuK_4ZVsIqPLgpLNXUBE2sHjRd55nppZ4UolF2UcXkdeHnyN8Ktw_3Rmqk6BrU_8UM_rr9nOKHbNhSr_lKQGGOGuiW6u1WM7WINC-qH6sFmU2BkmJo421hurv2y2FS80yNhQHl5SEX-45--OoFSO4l7FoFp0A69xZkAD_sga9HVs9XGcbNMoSg_BJIk7QlrHKKpMcjWjpUrvTELocjGFmLnDrnFPyzpoGWycbIgI2y0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 group-hover:opacity-100 md:opacity-0 transition-opacity flex flex-col justify-end p-base">
+<div class="flex justify-between items-center">
+<div class="flex gap-xs">
+<button class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[18px]">share</span>
+</button>
+</div>
+<button class="px-3 py-1 rounded-full bg-primary text-white font-label-sm">Save</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="relative group rounded-xl overflow-hidden bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300">
+<img alt="Meme" class="w-full object-cover aspect-[2/3]" data-alt="A 3D render of a glossy bright pink plastic toy figure in a dynamic action pose against a solid purple background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3lnKJQSVK9mGPiJ3UIAcVVNOCBGVKstdL2FgRs-dckzB2-6DCvRSQ3HFnCpc3-w4xJLvQERhgBbiCSVhoQhnIuxF1Sc3p0odrq_kdCOnKuNJEWseKPVb2s-OekodkJj6tYFQeI6ZNOszYKxU-AjrzWf8ZGc2_bE7Hu5QjBtDchczdj0pxTE6J6HnpnWcVw8YlQpMMOEPU0vowD6_agvepKnqCkUXJt9hmUeDaV_VI6chimfHkd1abtiZmW0xYK78etYDjD0lza6Jf"/>
+<div class="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/50 to-transparent">
+<div class="flex justify-between items-center text-white">
+<span class="font-label-sm flex items-center gap-1"><span class="material-symbols-outlined text-sm">favorite</span> 12.4k</span>
+<span class="font-label-sm flex items-center gap-1"><span class="material-symbols-outlined text-sm">bookmark</span> 2.1k</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="relative group rounded-xl overflow-hidden bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300">
+<img alt="Meme" class="w-full object-cover aspect-[4/5]" data-alt="Soft ethereal gradient background blending warm peach and cool mint green colors in a dreamlike foggy texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMPT4D8tdgfiaFE-8mpP9opniljwEsiI5FALoIEteWOQmF3F-KLgIZW5pKOMt5-ad9L7ig4AIK5usfZjT3ZGqCfB5ENq64yVOlr2nWCLeqPVRbT6apvC_HRkrtJC8U8HzJvyXFjUNtiR4nTb4EYhl5bAHVIJhY3wfeZ3xWScOEbyrvnpCxFtE1F0tKd-Cr5VAQhXNJDK5BilS3XAdCD1aoGohexzRevhZ4mB-_mPlAKc9H6fU7CkfnUHUJ8jCbV45_FvFOFgansa8q"/>
+<div class="absolute top-2 right-2">
+<button class="w-8 h-8 rounded-full bg-black/40 backdrop-blur-xl text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-lg">more_horiz</span>
+</button>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="relative group rounded-xl overflow-hidden bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300">
+<img alt="Meme" class="w-full object-cover aspect-[1/1]" data-alt="Close-up of a high-resolution colorful sticker of a pixel-art style Shiba Inu dog with a joyful expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkjRwxZoNkGkySHnjWW7SC0h1WTgI5P-VIe6k7tBa49OlrwbkDUWs8pYpcYbSW5c8OXvFExZ4lHfN-j_PD3JJSJ9Wfo1TmYRtAOkFEqEI0oNkAnlfCPEE-zp7ZqEUS_JBvm0u0kO9lkH0-zBmnhbTd6cIVAnrYLe5hHbd23H79W5XfyD0XvDnLlE0cA8GhBAftTlcKrkd4XJqJXP65afuw5wHmoYzV5XMA1TBEmP4UJwXJ3BWLXbpiKp35tQprFmP-UTm0xEyn7gRT"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="bg-white text-primary font-bold px-6 py-2 rounded-full shadow-xl transform scale-90 group-hover:scale-100 transition-transform">View Details</button>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="relative group rounded-xl overflow-hidden bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300">
+<img alt="Meme" class="w-full object-cover aspect-[3/4]" data-alt="Abstract 3D flowing shapes in metallic chrome and neon violet floating in a clean minimal white void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ8U8edoXI_8kslnBB00sxXJ0kbD1gxXbBJGsKPukmPXLh39W3_sc71YIsG9GTdIs92oix4RBSMuPyDd4L6JX40F2p6TT-lgcfvIwTdYQBp0-wdyl7gJIprS-RcVNy8gAuMIY80DHKod55CBi6F7Kiqhpdks1JhScwKH5lila8Hqf4sS81xhrJfj3ihOVE_nIj3nzYTICpjiWdJYbL9BMa_ejkk2LaSQ0mMJ0MPIsMLGosKdFg_GJlJZrr8twjYUEXaq4n7W4CRlgm"/>
+<div class="absolute bottom-3 left-3 flex gap-2">
+<div class="w-6 h-6 rounded-full bg-white/80 border border-white flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<span class="bg-black/40 backdrop-blur-md text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center">HOT</span>
+</div>
+</div>
+</div>
+<!-- Infinite Scroll Loader -->
+<div class="flex justify-center py-lg">
+<div class="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+</div>
+</main>
+<!-- Bottom Navigation Anchor -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-2xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border-t border-white/20 dark:border-zinc-800/50 shadow-[0_-8px_32px_rgba(168,85,247,0.12)]">
+<div class="flex justify-around items-center h-20 px-6 pb-safe w-full">
+<a class="bg-purple-100/50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 rounded-xl p-2 scale-110 flex flex-col items-center" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-['Plus_Jakarta_Sans'] font-semibold text-[10px]">Home</span>
+</a>
+<a class="text-zinc-400 dark:text-zinc-500 p-2 hover:bg-purple-50 dark:hover:bg-zinc-800 transition-colors flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-['Plus_Jakarta_Sans'] font-semibold text-[10px]">Explore</span>
+</a>
+<a class="text-zinc-400 dark:text-zinc-500 p-2 hover:bg-purple-50 dark:hover:bg-zinc-800 transition-colors flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">collections_bookmark</span>
+<span class="font-['Plus_Jakarta_Sans'] font-semibold text-[10px]">Saved</span>
+</a>
+<a class="text-zinc-400 dark:text-zinc-500 p-2 hover:bg-purple-50 dark:hover:bg-zinc-800 transition-colors flex flex-col items-center" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Plus_Jakarta_Sans'] font-semibold text-[10px]">Profile</span>
+</a>
+</div>
+</nav>
+<!-- Contextual FAB -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 z-40">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</body></html>

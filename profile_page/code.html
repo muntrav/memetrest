@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffafd3",
+                        "tertiary": "#a12e70",
+                        "on-secondary-fixed": "#001a42",
+                        "outline": "#7e7385",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#85145a",
+                        "on-surface-variant": "#4d4354",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed-variant": "#004395",
+                        "tertiary-container": "#c0488a",
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-primary-fixed": "#2c0051",
+                        "tertiary-fixed": "#ffd8e7",
+                        "on-primary-container": "#fffbff",
+                        "surface": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-low": "#eff4ff",
+                        "primary-container": "#9c48ea",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "secondary": "#0058be",
+                        "primary": "#8127cf",
+                        "outline-variant": "#cfc2d6",
+                        "on-surface": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-container": "#2170e4",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#f0dbff",
+                        "surface-container-high": "#dce9ff",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-primary": "#ddb7ff",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#fffbff",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#842bd2",
+                        "on-tertiary-fixed": "#3d0026",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-container": "#fefcff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "margin-desktop": "32px",
+                        "base": "8px",
+                        "md": "24px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-xl": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "display-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background font-body-md text-on-background min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-white/80 backdrop-blur-xl border-b border-white/20 docked full-width top-0 sticky z-50 shadow-[0_8px_32px_rgba(168,85,247,0.08)]">
+<div class="flex justify-between items-center px-4 h-16 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-base">
+<span class="material-symbols-outlined text-purple-600 hover:scale-105 transition-transform duration-200">search</span>
+</div>
+<h1 class="font-['Plus_Jakarta_Sans'] font-bold text-lg tracking-tight text-purple-600 bg-clip-text">Memetrest</h1>
+<div class="w-8 h-8 rounded-full overflow-hidden ring-2 ring-primary/20">
+<img alt="User avatar" class="w-full h-full object-cover" data-alt="vibrant 3D avatar of a stylish young creator with purple glasses and a friendly expression on a soft pastel background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLnPxQf5_YHTvHLRILSFNw19HdGkpTaga2dJtIyMLDHVxIZkm4XYZ5L3Y2d7W7Bol35QT7Tv8iRfAMh5DSHOdGA5gH9DoeOdAL9ZRZqZHXf1h3038NinRUAajeQyjTvgkAMIfKHZCHBpMdI-yeEuUOFua_qDrI5bDGyjgZ9hvnVSdogLSAEHdzQIebunrjM-PZWWbPD-7bg9Prve5jwQF4q5BSL9nE_ZagVP-V03NxWeiaC86UW4HnIKx3dZVPOIGCmkhTno5TBXfQ"/>
+</div>
+</div>
+</header>
+<!-- Profile Header Canvas -->
+<main class="pb-24">
+<section class="px-margin-mobile pt-lg pb-md flex flex-col items-center">
+<div class="relative mb-md">
+<div class="w-24 h-24 rounded-full p-1 bg-gradient-to-tr from-primary to-tertiary shadow-lg">
+<div class="w-full h-full rounded-full border-4 border-white overflow-hidden">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="Close up of a stylized digital avatar with a trendy haircut and cheerful expression for a social profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvwQ5-zVZmYqYGiBuswp2eQVgR0us-sSpv6Ls2cvjz7eK-293U8Vh7QTokMnyjDf_tLMWmRLsXZ4RU06o1JfnmdhEs3NryJAZ8re8BCkNSf3AD6uyJVgW9ZuTBsqy1q_ov5N7UUWyHmZj3y_EOPoxN0w-838wJD7V3HwXdqdMRb78oyrk7z4hpOgPieQiIHXHo0Q-hc1xRrcuA5h7rVweox_h3BoPPKzXAA3foTZTm0o0SKfY5o4cq-d1NeRDAZx5vdeEOxXMkrn9h"/>
+</div>
+</div>
+<div class="absolute bottom-0 right-0 bg-primary text-white p-1 rounded-full border-2 border-white">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">add</span>
+</div>
+</div>
+<div class="text-center mb-lg">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xs">@meme_lord_99</h2>
+<p class="font-body-md text-on-surface-variant px-lg">Curating the finest digital artifacts for the terminally online. 🚀</p>
+</div>
+<!-- Stats Bento -->
+<div class="grid grid-cols-3 gap-sm w-full max-w-md bg-surface-container-low p-sm rounded-2xl shadow-sm border border-outline-variant/30">
+<div class="flex flex-col items-center py-xs">
+<span class="font-headline-md text-primary">12.4k</span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider">Followers</span>
+</div>
+<div class="flex flex-col items-center py-xs border-x border-outline-variant/50">
+<span class="font-headline-md text-primary">842</span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider">Saved</span>
+</div>
+<div class="flex flex-col items-center py-xs">
+<span class="font-headline-md text-primary">156</span>
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider">Uploads</span>
+</div>
+</div>
+</section>
+<!-- Dynamic Tabs -->
+<nav class="sticky top-16 bg-background/90 backdrop-blur-md z-40 border-b border-outline-variant/20 px-margin-mobile mb-gutter">
+<div class="flex justify-between max-w-md mx-auto">
+<button class="py-md border-b-2 border-primary text-primary font-label-sm flex-1">Saved</button>
+<button class="py-md border-b-2 border-transparent text-on-surface-variant font-label-sm flex-1">Uploaded</button>
+<button class="py-md border-b-2 border-transparent text-on-surface-variant font-label-sm flex-1">Boards</button>
+</div>
+</nav>
+<!-- Content Grid (Masonry Concept) -->
+<section class="px-margin-mobile">
+<div class="masonry-grid">
+<!-- Card 1 -->
+<div class="rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(168,85,247,0.08)] bg-white group hover:scale-[1.02] transition-transform duration-200">
+<div class="relative">
+<img class="w-full aspect-[4/5] object-cover" data-alt="funny pug dog wearing oversized sunglasses and a colorful Hawaiian shirt sitting on a beach chair under a bright sun" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzwxUAfy_s7aD-rVdm_18eNL42oSqRRX0DgTS9CWRWGLyrkC-HeE5JQPjdpQA6rkctVUXegdUs6F5SLmGDfQNZZzIPpAzbEJNiEEfGZLvjxMa-24E6H1rUGF_IOrgniUQ5kF0oFiFju7umAphOA9eIyg9ATbqbWtlu28d2KwhuwFcV-yq_VKnbX9CzyQ0nqzbZJx8N4aFXH_OFrPhF7aKmxrlJWITBpxZWoN_ixs_e_eNlbUahcoaKMZmsorNBcp3SOOFxJTsz4Fr3"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-sm">
+<span class="text-white text-label-sm font-semibold">Saved to "Animals"</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(168,85,247,0.08)] bg-white group hover:scale-[1.02] transition-transform duration-200">
+<div class="relative">
+<img class="w-full aspect-[1/1] object-cover" data-alt="vintage 90s aesthetic computer setup with neon vaporwave lighting and retro gaming hardware on a desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhX86VbHA_yPfPjmwOW13dH6gI1S1-p8k44XuJGPSpdijoA-NZrVWIhLuc0E67xxgipBq7madmteiw9WwZKM7WAXHGunmH3YIiTBPoNbLNY_4mrnOOtRTi8waE-SVaD7K1oriaFZfCawGcZO47ztrZLV6-5jHlOBP642oFouJSPc32PsQrKUXaqpB6ctkdieR6IUKtohbA03VA_etw7Kn4f4bvDthAg1xJlKWWWLrk0oLLoYdrItXZ6EXVEXXPN6nZ_CeUuZHLABpW"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-sm">
+<span class="text-white text-label-sm font-semibold">Saved to "Tech Nostalgia"</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(168,85,247,0.08)] bg-white group hover:scale-[1.02] transition-transform duration-200">
+<div class="relative">
+<img class="w-full aspect-[3/4] object-cover" data-alt="abstract digital art with flowing geometric shapes in vibrant neon purple and pink gradients with grainy texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSXMFY1_DvsGZ9qTm9u3FcRaat0OUHe8GJdLUG18cdDvkQclT5amrtEMn9W5x8GfUCY1hhVFGpakDo7dystdYEqBaV5pXfKl7qrIE5h0GO2r_917OwoejYdCTWILx2n_59x5Ey-41Q7WJ9PwTxSAUT2LKNBmQrjtOyGsSS74VnL4r0bSf5q1qoyiaC4TXDt3BswfSbu_eldvWJhOiQZqQlHwAaLi2P5_cIf6B_Rq3D0YAO-Z4WKaf_pInJyKO9M8tP-H2MXeFBEnRp"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-sm">
+<span class="text-white text-label-sm font-semibold">Saved to "Mood"</span>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(168,85,247,0.08)] bg-white group hover:scale-[1.02] transition-transform duration-200">
+<div class="relative">
+<img class="w-full aspect-[4/5] object-cover" data-alt="surprised ginger cat looking directly at camera with wide eyes and open mouth in high resolution close up" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMB1QNNoyEXzK3oDgtzOTrih28pZAJeDHhUlTDf1Z26M0_G3Bzr7T3byJuvTq-ShYPmtMf7taW118w0VLZMSbyiAW2zs9wM8by5arVhQz3EeFLgeewOavDAzJtuXDGGgr1N1YVdu_gy4nDkIoBDngOhwc8VOvnZ8oIYzMCDhsJOHBuvArBefgEMnVWpAHgDFTgtVFOZQn2FcESMFuWoefd4mRonEFdx6Rn7e2uTQaxr6xud_0CDSX39ce1pVLhmjFwT0om75t2-sgx"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-sm">
+<span class="text-white text-label-sm font-semibold">Saved to "Reactions"</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-2xl bg-white/80 backdrop-blur-xl border-t border-white/20 shadow-[0_-8px_32px_rgba(168,85,247,0.12)]">
+<div class="flex justify-around items-center h-20 px-6 pb-safe w-full">
+<button class="text-zinc-400 p-2 hover:bg-purple-50 transition-colors">
+<span class="material-symbols-outlined">home</span>
+</button>
+<button class="text-zinc-400 p-2 hover:bg-purple-50 transition-colors">
+<span class="material-symbols-outlined">explore</span>
+</button>
+<button class="text-zinc-400 p-2 hover:bg-purple-50 transition-colors">
+<span class="material-symbols-outlined">collections_bookmark</span>
+</button>
+<button class="bg-purple-100/50 text-purple-600 rounded-xl p-2 scale-110">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</button>
+</div>
+</nav>
+<!-- Floating Reaction Stickers (Contextual Interaction) -->
+<div class="fixed bottom-24 right-4 flex flex-col gap-sm pointer-events-none opacity-40">
+<div class="w-10 h-10 bg-white/40 backdrop-blur rounded-full flex items-center justify-center border border-white/20">
+<span class="material-symbols-outlined text-purple-600">rocket_launch</span>
+</div>
+<div class="w-10 h-10 bg-white/40 backdrop-blur rounded-full flex items-center justify-center border border-white/20">
+<span class="material-symbols-outlined text-purple-600">auto_awesome</span>
+</div>
+</div>
+</body></html>

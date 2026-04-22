@@ -1,0 +1,593 @@
+
+> memetrest@1.0.0 dev
+> next dev --hostname 0.0.0.0 --port 3000
+
+   ▲ Next.js 15.5.15
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ✓ Ready in 4.2s
+ ○ Compiling /[screen] ...
+ ✓ Compiled /[screen] in 9.7s (307 modules)
+ GET /home_feed_web 200 in 11852ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1123ms (300 modules)
+ GET / 307 in 1713ms
+ ✓ Compiled /[screen] in 236ms (311 modules)
+ GET /home_feed_web 200 in 930ms
+ GET /home_feed_web 200 in 253ms
+ GET /favicon.ico 404 in 261ms
+ GET /home_feed_web 200 in 267ms
+ GET /favicon.ico 404 in 258ms
+ GET /home_feed_web 200 in 378ms
+ GET /favicon.ico 404 in 273ms
+ GET /home_feed_web 200 in 303ms
+ ✓ Compiled in 1755ms (351 modules)
+ GET /home_feed_web 200 in 306ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 8.6s (835 modules)
+ GET /_next/data/8dzwOcgiKnvJuubU8A_ez/search_discovery.json?screen=search_discovery 404 in 10601ms
+ GET /_next/data/8dzwOcgiKnvJuubU8A_ez/collections.json?screen=collections 404 in 1416ms
+ ⨯ Error: Cannot find module './341.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\app\_not-found\page.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at Array.map (<anonymous>) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/search_discovery'
+}
+ ⨯ Error: Cannot find module './341.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\app\_not-found\page.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at Array.map (<anonymous>) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/collections'
+}
+ GET /_next/data/8dzwOcgiKnvJuubU8A_ez/profile_page.json?screen=profile_page 404 in 402ms
+ GET /collections 500 in 109ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 3s (934 modules)
+ ⨯ Error: Cannot find module './341.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at Array.map (<anonymous>) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './341.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at Array.map (<anonymous>) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './341.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at Array.map (<anonymous>) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/profile_page'
+}
+ ⨯ Error: Cannot find module './341.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at Array.map (<anonymous>) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ GET /profile_page 500 in 20905ms
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'D:\Projects\memetrest\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'D:\Projects\memetrest\.next\cache\webpack\client-development-fallback\0.pack.gz'
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'D:\Projects\memetrest\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'D:\Projects\memetrest\.next\cache\webpack\client-development-fallback\0.pack.gz'
+ ✓ Compiled in 3.7s (635 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: ENOENT: no such file or directory, rename 'D:\Projects\memetrest\.next\cache\webpack\client-development-fallback\0.pack.gz_' -> 'D:\Projects\memetrest\.next\cache\webpack\client-development-fallback\0.pack.gz'
+ ⚠ Found a change in next.config.mjs. Restarting the server to apply the changes...
+   ▲ Next.js 15.5.15
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ✓ Ready in 6.1s
+ ○ Compiling /home_feed_web ...
+ ✓ Compiled /home_feed_web in 11.3s (655 modules)
+ GET /home_feed_web 200 in 545ms
+ ○ Compiling / ...
+ ✓ Compiled / in 1802ms (572 modules)
+ GET / 200 in 1845ms
+ GET / 307 in 1120ms
+ ✓ Compiled /home_feed_web in 285ms (407 modules)
+ GET /home_feed_web 200 in 1542ms
+ ○ Compiling /search_discovery ...
+ ✓ Compiled /search_discovery in 626ms (648 modules)
+ GET /search_discovery 200 in 1035ms
+ ○ Compiling /collections ...
+ ✓ Compiled /collections in 638ms (651 modules)
+ GET /collections 200 in 852ms
+ ○ Compiling /profile_page ...
+ ✓ Compiled /profile_page in 564ms (654 modules)
+ GET /profile_page 200 in 729ms
+ ○ Compiling /home_feed_mobile ...
+ ✓ Compiled /home_feed_mobile in 594ms (657 modules)
+ GET /home_feed_mobile 200 in 812ms
+ GET /home_feed_mobile 200 in 83ms
+ ✓ Compiled in 1744ms (659 modules)
+ GET /home_feed_mobile 200 in 412ms
+ ✓ Compiled in 878ms (659 modules)
+ GET /home_feed_mobile 200 in 220ms
+ ✓ Compiled in 905ms (659 modules)
+ GET /home_feed_mobile 200 in 202ms
+ ✓ Compiled in 956ms (659 modules)
+ GET /home_feed_mobile 200 in 169ms
+ ✓ Compiled in 2.3s (252 modules)
+ ✓ Compiled in 366ms (252 modules)
+ GET /home_feed_mobile 200 in 265ms
+ GET /home_feed_mobile 200 in 99ms
+ ✓ Compiled in 858ms (659 modules)
+ GET /home_feed_mobile 200 in 333ms
+ ⨯ ./components/screens/search-discovery-screen.tsx
+Error: 
+
+Caused by:
+    0: Failed to read source code from D:\Projects\memetrest\components\screens\search-discovery-screen.tsx
+    1: The system cannot find the file specified. (os error 2)
+
+Import trace for requested module:
+./components/screens/search-discovery-screen.tsx
+./app/search_discovery/page.tsx
+ ✓ Compiled in 324ms (252 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|normal|default|dependencyType=|esm|path=|D:\Projects\memetrest|request=|D:\Projects\memetrest\node_modules\next\dist\compiled\@next\react-refresh-utils\dist\runtime.js from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|normal|default|dependencyType=|esm|path=|D:\Projects\memetrest|request=|./node_modules/next/dist/client/dev/amp-dev from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|normal|default|dependencyType=|esm|path=|D:\Projects\memetrest|request=|./node_modules/next/dist/client/next-dev.js from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|normal|default|dependencyType=|esm|path=|D:\Projects\memetrest|request=|./node_modules/next/dist/client/app-next-dev.js from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|loader|default|path=|D:\Projects\memetrest|request=|next-client-pages-loader from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|normal|default|dependencyType=|esm|path=|D:\Projects\memetrest|request=|D:\Projects\memetrest\node_modules\next\dist\client\router.js from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|loader|default|path=|D:\Projects\memetrest|request=|D:\Projects\memetrest\node_modules\next\dist\compiled\@next\react-refresh-utils\dist\loader.js from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|loader|default|path=|D:\Projects\memetrest|request=|next-swc-loader from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|loader|default|path=|D:\Projects\memetrest|request=|next-flight-client-module-loader from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|normal|default|alias=[|server-only$=|next/dist/compiled/server-only/index|client-only$=|next/dist/compiled/client-only/index|next/dist/compiled/client-only$=|next/dist/compiled/client-only/index|next/dist/compiled/server-only=|next/dist/compiled/server-only/index|next=|D:\Projects\memetrest\node_modules\next|]|fallback=[|assert=|D:\Projects\memetrest\node_modules\next\dist\compiled\assert\assert.js|buffer=|D:\Projects\memetrest\node_modules\next\dist\compiled\buffer\index.js|constants=|D:\Projects\memetrest\node_modules\next\dist\compiled\constants-browserify\constants.json|crypto=|D:\Projects\memetrest\node_modules\next\dist\compiled\crypto-browserify\index.js|domain=|D:\Projects\memetrest\node_modules\next\dist\compiled\domain-browser\index.js|http=|D:\Projects\memetrest\node_modules\next\dist\compiled\stream-http\index.js|https=|D:\Projects\memetrest\node_modules\next\dist\compiled\https-browserify\index.js|os=|D:\Projects\memetrest\node_modules\next\dist\compiled\os-browserify\browser.js|path=|D:\Projects\memetrest\node_modules\next\dist\compiled\path-browserify\index.js|punycode=|D:\Projects\memetrest\node_modules\next\dist\compiled\punycode\punycode.js|process=|D:\Projects\memetrest\node_modules\next\dist\build\polyfills\process.js|querystring=|D:\Projects\memetrest\node_modules\next\dist\compiled\querystring-es3\index.js|stream=|D:\Projects\memetrest\node_modules\next\dist\compiled\stream-browserify\index.js|string_decoder=|D:\Projects\memetrest\node_modules\next\dist\compiled\string_decoder\string_decoder.js|sys=|D:\Projects\memetrest\node_modules\next\dist\compiled\util\util.js|timers=|D:\Projects\memetrest\node_modules\next\dist\compiled\timers-browserify\main.js|tty=|D:\Projects\memetrest\node_modules\next\dist\compiled\tty-browserify\index.js|util=|D:\Projects\memetrest\node_modules\next\dist\compiled\util\util.js|vm=|D:\Projects\memetrest\node_modules\next\dist\compiled\vm-browserify\index.js|zlib=|D:\Projects\memetrest\node_modules\next\dist\compiled\browserify-zlib\index.js|events=|D:\Projects\memetrest\node_modules\next\dist\compiled\events\events.js|setImmediate=|D:\Projects\memetrest\node_modules\next\dist\compiled\setimmediate\setImmediate.js|]|dependencyType=|commonjs|path=|D:\Projects\memetrest|request=|next/dist/pages/_app from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|normal|default|alias=[|server-only$=|next/dist/compiled/server-only/index|client-only$=|next/dist/compiled/client-only/index|next/dist/compiled/client-only$=|next/dist/compiled/client-only/index|next/dist/compiled/server-only=|next/dist/compiled/server-only/index|next=|D:\Projects\memetrest\node_modules\next|]|fallback=[|assert=|D:\Projects\memetrest\node_modules\next\dist\compiled\assert\assert.js|buffer=|D:\Projects\memetrest\node_modules\next\dist\compiled\buffer\index.js|constants=|D:\Projects\memetrest\node_modules\next\dist\compiled\constants-browserify\constants.json|crypto=|D:\Projects\memetrest\node_modules\next\dist\compiled\crypto-browserify\index.js|domain=|D:\Projects\memetrest\node_modules\next\dist\compiled\domain-browser\index.js|http=|D:\Projects\memetrest\node_modules\next\dist\compiled\stream-http\index.js|https=|D:\Projects\memetrest\node_modules\next\dist\compiled\https-browserify\index.js|os=|D:\Projects\memetrest\node_modules\next\dist\compiled\os-browserify\browser.js|path=|D:\Projects\memetrest\node_modules\next\dist\compiled\path-browserify\index.js|punycode=|D:\Projects\memetrest\node_modules\next\dist\compiled\punycode\punycode.js|process=|D:\Projects\memetrest\node_modules\next\dist\build\polyfills\process.js|querystring=|D:\Projects\memetrest\node_modules\next\dist\compiled\querystring-es3\index.js|stream=|D:\Projects\memetrest\node_modules\next\dist\compiled\stream-browserify\index.js|string_decoder=|D:\Projects\memetrest\node_modules\next\dist\compiled\string_decoder\string_decoder.js|sys=|D:\Projects\memetrest\node_modules\next\dist\compiled\util\util.js|timers=|D:\Projects\memetrest\node_modules\next\dist\compiled\timers-browserify\main.js|tty=|D:\Projects\memetrest\node_modules\next\dist\compiled\tty-browserify\index.js|util=|D:\Projects\memetrest\node_modules\next\dist\compiled\util\util.js|vm=|D:\Projects\memetrest\node_modules\next\dist\compiled\vm-browserify\index.js|zlib=|D:\Projects\memetrest\node_modules\next\dist\compiled\browserify-zlib\index.js|events=|D:\Projects\memetrest\node_modules\next\dist\compiled\events\events.js|setImmediate=|D:\Projects\memetrest\node_modules\next\dist\compiled\setimmediate\setImmediate.js|]|dependencyType=|commonjs|path=|D:\Projects\memetrest|request=|next/dist/pages/_error from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|normal|default|alias=[|server-only$=|next/dist/compiled/server-only/index|client-only$=|next/dist/compiled/client-only/index|next/dist/compiled/client-only$=|next/dist/compiled/client-only/index|next/dist/compiled/server-only=|next/dist/compiled/server-only/index|next=|D:\Projects\memetrest\node_modules\next|]|fullySpecified=|false|fallback=[|assert=|D:\Projects\memetrest\node_modules\next\dist\compiled\assert\assert.js|buffer=|D:\Projects\memetrest\node_modules\next\dist\compiled\buffer\index.js|constants=|D:\Projects\memetrest\node_modules\next\dist\compiled\constants-browserify\constants.json|crypto=|D:\Projects\memetrest\node_modules\next\dist\compiled\crypto-browserify\index.js|domain=|D:\Projects\memetrest\node_modules\next\dist\compiled\domain-browser\index.js|http=|D:\Projects\memetrest\node_modules\next\dist\compiled\stream-http\index.js|https=|D:\Projects\memetrest\node_modules\next\dist\compiled\https-browserify\index.js|os=|D:\Projects\memetrest\node_modules\next\dist\compiled\os-browserify\browser.js|path=|D:\Projects\memetrest\node_modules\next\dist\compiled\path-browserify\index.js|punycode=|D:\Projects\memetrest\node_modules\next\dist\compiled\punycode\punycode.js|process=|D:\Projects\memetrest\node_modules\next\dist\build\polyfills\process.js|querystring=|D:\Projects\memetrest\node_modules\next\dist\compiled\querystring-es3\index.js|stream=|D:\Projects\memetrest\node_modules\next\dist\compiled\stream-browserify\index.js|string_decoder=|D:\Projects\memetrest\node_modules\next\dist\compiled\string_decoder\string_decoder.js|sys=|D:\Projects\memetrest\node_modules\next\dist\compiled\util\util.js|timers=|D:\Projects\memetrest\node_modules\next\dist\compiled\timers-browserify\main.js|tty=|D:\Projects\memetrest\node_modules\next\dist\compiled\tty-browserify\index.js|util=|D:\Projects\memetrest\node_modules\next\dist\compiled\util\util.js|vm=|D:\Projects\memetrest\node_modules\next\dist\compiled\vm-browserify\index.js|zlib=|D:\Projects\memetrest\node_modules\next\dist\compiled\browserify-zlib\index.js|events=|D:\Projects\memetrest\node_modules\next\dist\compiled\events\events.js|setImmediate=|D:\Projects\memetrest\node_modules\next\dist\compiled\setimmediate\setImmediate.js|]|dependencyType=|unknown|path=|D:\Projects\memetrest\node_modules\next\dist\lib|request=|private-next-instrumentation-client from pack: Error: incorrect header check
+<w> [webpack.cache.PackFileCacheStrategy] Restoring failed for ResolverCachePlugin|normal|default|alias=[|server-only$=|next/dist/compiled/server-only/index|client-only$=|next/dist/compiled/client-only/index|next/dist/compiled/client-only$=|next/dist/compiled/client-only/index|next/dist/compiled/server-only=|next/dist/compiled/server-only/index|D:\Projects\memetrest\node_modules\next\head.js=|next/dist/client/components/noop-head|D:\Projects\memetrest\node_modules\next\image.js=|next/dist/api/image|D:\Projects\memetrest\node_modules\next\constants.js=|next/dist/api/constants|D:\Projects\memetrest\node_modules\next\router.js=|next/dist/api/router|D:\Projects\memetrest\node_modules\next\dynamic.js=|next/dist/api/app-dynamic|D:\Projects\memetrest\node_modules\next\script.js=|next/dist/api/script|D:\Projects\memetrest\node_modules\next\link.js=|next/dist/client/app-dir/link|D:\Projects\memetrest\node_modules\next\form.js=|next/dist/client/app-dir/form|D:\Projects\memetrest\node_modules\next\navigation.js=|next/dist/api/navigation|D:\Projects\memetrest\node_modules\next\headers.js=|next/dist/api/headers|D:\Projects\memetrest\node_modules\next\og.js=|next/dist/api/og|D:\Projects\memetrest\node_modules\next\server.js=|next/dist/api/server|D:\Projects\memetrest\node_modules\next\document.js=|next/dist/api/document|D:\Projects\memetrest\node_modules\next\app.js=|next/dist/api/app|react$=|next/dist/compiled/react|react/compiler-runtime$=|next/dist/compiled/react/compiler-runtime|react/jsx-dev-runtime$=|next/dist/compiled/react/jsx-dev-runtime|react/jsx-runtime$=|next/dist/compiled/react/jsx-runtime|react-dom$=|next/dist/compiled/react-dom|react-dom/client$=|next/dist/compiled/react-dom/client|react-dom/server$=|next/dist/compiled/react-dom/server.browser|react-dom/server.browser$=|next/dist/compiled/react-dom/server.browser|react-dom/server.edge$=|next/dist/build/webpack/alias/react-dom-server.js|react-dom/static$=|next/dist/compiled/react-dom/static.browser|react-dom/static.browser$=|next/dist/compiled/react-dom/static.browser|react-dom/static.edge$=|next/dist/compiled/react-dom/static.edge|react-server-dom-webpack/client$=|next/dist/compiled/react-server-dom-webpack/client.browser|react-server-dom-webpack/server$=|next/dist/compiled/react-server-dom-webpack/server.browser|react-server-dom-webpack/server.node$=|next/dist/compiled/react-server-dom-webpack/server.node|react-server-dom-webpack/static$=|next/dist/compiled/react-server-dom-webpack/static.browser|@vercel/turbopack-ecmascript-runtime/browser/dev/hmr-client/hmr-client.ts=|next/dist/client/dev/noop-turbopack-hmr|next=|D:\Projects\memetrest\node_modules\next|]|fullySpecified=|false|mainFields=[|0=|browser|1=|module|2=|main|]|fallback=[|assert=|D:\Projects\memetrest\node_modules\next\dist\compiled\assert\assert.js|buffer=|D:\Projects\memetrest\node_modules\next\dist\compiled\buffer\index.js|constants=|D:\Projects\memetrest\node_modules\next\dist\compiled\constants-browserify\constants.json|crypto=|D:\Projects\memetrest\node_modules\next\dist\compiled\crypto-browserify\index.js|domain=|D:\Projects\memetrest\node_modules\next\dist\compiled\domain-browser\index.js|http=|D:\Projects\memetrest\node_modules\next\dist\compiled\stream-http\index.js|https=|D:\Projects\memetrest\node_modules\next\dist\compiled\https-browserify\index.js|os=|D:\Projects\memetrest\node_modules\next\dist\compiled\os-browserify\browser.js|path=|D:\Projects\memetrest\node_modules\next\dist\compiled\path-browserify\index.js|punycode=|D:\Projects\memetrest\node_modules\next\dist\compiled\punycode\punycode.js|process=|D:\Projects\memetrest\node_modules\next\dist\build\polyfills\process.js|querystring=|D:\Projects\memetrest\node_modules\next\dist\compiled\querystring-es3\index.js|stream=|D:\Projects\memetrest\node_modules\next\dist\compiled\stream-browserify\index.js|string_decoder=|D:\Projects\memetrest\node_modules\next\dist\compiled\string_decoder\string_decoder.js|sys=|D:\Projects\memetrest\node_modules\next\dist\compiled\util\util.js|timers=|D:\Projects\memetrest\node_modules\next\dist\compiled\timers-browserify\main.js|tty=|D:\Projects\memetrest\node_modules\next\dist\compiled\tty-browserify\index.js|util=|D:\Projects\memetrest\node_modules\next\dist\compiled\util\util.js|vm=|D:\Projects\memetrest\node_modules\next\dist\compiled\vm-browserify\index.js|zlib=|D:\Projects\memetrest\node_modules\next\dist\compiled\browserify-zlib\index.js|events=|D:\Projects\memetrest\node_modules\next\dist\compiled\events\events.js|setImmediate=|D:\Projects\memetrest\node_modules\next\dist\compiled\setimmediate\setImmediate.js|]|dependencyType=|unknown|path=|D:\Projects\memetrest\node_modules\next\dist\lib|request=|private-next-instrumentation-client from pack: Error: incorrect header check
+ ○ Compiling /_error ...
+ ⨯ ./components/screens/search-discovery-screen.tsx
+Error: 
+
+Caused by:
+    0: Failed to read source code from D:\Projects\memetrest\components\screens\search-discovery-screen.tsx
+    1: The system cannot find the file specified. (os error 2)
+
+Import trace for requested module:
+./components/screens/search-discovery-screen.tsx
+./app/search_discovery/page.tsx
+ GET /home_feed_mobile 500 in 8173ms
+ GET /home_feed_mobile 500 in 186ms
+ GET /home_feed_mobile 500 in 30ms
+ GET /home_feed_mobile 500 in 27ms
+ GET /home_feed_mobile 500 in 67ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ GET /home_feed_mobile 200 in 167ms
+ ⚠ Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+ ✓ Compiled /_error in 2.3s (910 modules)
+ ✓ Compiled in 719ms (403 modules)
+ ⨯ ./components/screens/collections-screen.tsx
+Error: 
+
+Caused by:
+    0: Failed to read source code from D:\Projects\memetrest\components\screens\collections-screen.tsx
+    1: The system cannot find the file specified. (os error 2)
+
+Import trace for requested module:
+./components/screens/collections-screen.tsx
+./app/collections/page.tsx
+ GET /home_feed_mobile 200 in 2774ms
+ ✓ Compiled in 1720ms (910 modules)
+ GET /home_feed_mobile 200 in 290ms
+ ✓ Compiled in 298ms (403 modules)
+ ⨯ ./components/screens/profile-page-screen.tsx
+Error: 
+
+Caused by:
+    0: Failed to read source code from D:\Projects\memetrest\components\screens\profile-page-screen.tsx
+    1: The system cannot find the file specified. (os error 2)
+
+Import trace for requested module:
+./components/screens/profile-page-screen.tsx
+./app/profile_page/page.tsx
+ ○ Compiling /_error ...
+ ⨯ ./components/screens/profile-page-screen.tsx
+Error: 
+
+Caused by:
+    0: Failed to read source code from D:\Projects\memetrest\components\screens\profile-page-screen.tsx
+    1: The system cannot find the file specified. (os error 2)
+
+Import trace for requested module:
+./components/screens/profile-page-screen.tsx
+./app/profile_page/page.tsx
+ GET /home_feed_mobile 500 in 2266ms
+ GET /home_feed_mobile 500 in 26ms
+ GET /home_feed_mobile 500 in 44ms
+ ✓ Compiled /_error in 2.5s (910 modules)
+ ✓ Compiled in 335ms (403 modules)
+ ✓ Compiled in 385ms (403 modules)
+ ✓ Compiled in 1156ms (403 modules)
+ ✓ Compiled in 406ms (403 modules)
+ ✓ Compiled in 446ms (403 modules)
+ ✓ Compiled in 534ms (403 modules)
+ GET /search_discovery 200 in 994ms
+ GET /home_feed_web 200 in 1105ms
+ GET /collections 200 in 1130ms
+ GET /home_feed_mobile 200 in 182ms
+ GET /search_discovery 200 in 188ms
+ GET /profile_page 200 in 192ms
+ GET /collections 200 in 186ms
+ ○ Compiling /meme_detail_view ...
+ ✓ Compiled / in 6.2s (923 modules)
+ ⨯ Error: ENOENT: no such file or directory, open 'D:\Projects\memetrest\.next\server\vendor-chunks\@swc.js'
+    at <unknown> (D:\Projects\memetrest\.next\server\app\page.js:269:47)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\app\page.js:272:3) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\Projects\\memetrest\\.next\\server\\vendor-chunks\\@swc.js',
+  page: '/'
+}
+ ⨯ Error: ENOENT: no such file or directory, open 'D:\Projects\memetrest\.next\server\vendor-chunks\@swc.js'
+    at <unknown> (D:\Projects\memetrest\.next\server\app\meme_detail_view\page.js:357:47)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\app\meme_detail_view\page.js:360:3) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\Projects\\memetrest\\.next\\server\\vendor-chunks\\@swc.js',
+  page: '/meme_detail_view'
+}
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1135ms (1019 modules)
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\pages\_document.js:1:321)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\pages\_document.js:1:366) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\pages\_document.js:1:321)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\pages\_document.js:1:366) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+Error: ENOENT: no such file or directory, open 'D:\Projects\memetrest\.next\server\vendor-chunks\@swc.js'
+    at <unknown> (D:\Projects\memetrest\.next\server\app\page.js:269:47)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\app\page.js:272:3) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\Projects\\memetrest\\.next\\server\\vendor-chunks\\@swc.js',
+  page: '/'
+}
+Error: ENOENT: no such file or directory, open 'D:\Projects\memetrest\.next\server\vendor-chunks\@swc.js'
+    at <unknown> (D:\Projects\memetrest\.next\server\app\meme_detail_view\page.js:357:47)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\app\meme_detail_view\page.js:360:3) {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'D:\\Projects\\memetrest\\.next\\server\\vendor-chunks\\@swc.js',
+  page: '/meme_detail_view'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\pages\_document.js:1:321)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\pages\_document.js:1:366) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\pages\_document.js:1:321)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\pages\_document.js:1:366) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ GET / 500 in 5979ms
+ GET / 500 in 228ms
+ GET /meme_detail_view 500 in 8741ms
+ GET /meme_detail_view 500 in 230ms
+ GET / 307 in 620ms
+ ⨯ Error: Cannot find module './37.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\app\home_feed_web\page.js:2:22192)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\app\home_feed_web\page.js:2:22240) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/home_feed_web'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\pages\_document.js:1:321)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\pages\_document.js:1:366) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+Error: Cannot find module './37.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\app\home_feed_web\page.js:2:22192)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\app\home_feed_web\page.js:2:22240) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/home_feed_web'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\pages\_document.js:1:321)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\pages\_document.js:1:366) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ GET /home_feed_web 500 in 192ms
+ GET /home_feed_web 500 in 64ms
+ ⨯ Error: Cannot find module './37.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\app\home_feed_web\page.js:2:22192)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\app\home_feed_web\page.js:2:22240) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/home_feed_web'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\pages\_document.js:1:321)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\pages\_document.js:1:366) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+Error: Cannot find module './37.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\app\home_feed_web\page.js:2:22192)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\app\home_feed_web\page.js:2:22240) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array],
+  page: '/home_feed_web'
+}
+ ⨯ Error: Cannot find module './611.js'
+Require stack:
+- D:\Projects\memetrest\.next\server\webpack-runtime.js
+- D:\Projects\memetrest\.next\server\pages\_document.js
+- D:\Projects\memetrest\node_modules\next\dist\server\require.js
+- D:\Projects\memetrest\node_modules\next\dist\server\load-components.js
+- D:\Projects\memetrest\node_modules\next\dist\build\utils.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\options.js
+- D:\Projects\memetrest\node_modules\next\dist\build\swc\index.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\parse-module.js
+- D:\Projects\memetrest\node_modules\next\dist\build\analysis\get-page-static-info.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\router-server.js
+- D:\Projects\memetrest\node_modules\next\dist\server\lib\start-server.js
+    at <unknown> (D:\Projects\memetrest\.next\server\pages\_document.js:1:321)
+    at Object.<anonymous> (D:\Projects\memetrest\.next\server\pages\_document.js:1:366) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [Array]
+}
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ ⨯ [TypeError: Cannot read properties of undefined (reading '/_app')]
+[TypeError: Cannot read properties of undefined (reading '/_app')]
+ GET /home_feed_web 500 in 1191ms
+ GET /home_feed_web 500 in 166ms

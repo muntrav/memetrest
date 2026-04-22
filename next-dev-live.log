@@ -1,0 +1,16 @@
+
+> memetrest@1.0.0 dev
+> next dev --hostname 0.0.0.0 --port 3000
+
+   ▲ Next.js 15.5.15
+   - Local:        http://localhost:3000
+   - Network:      http://0.0.0.0:3000
+
+ ✓ Starting...
+ ✓ Ready in 5.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 19.2s (675 modules)
+ GET / 200 in 22080ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 2.3s (671 modules)
+ GET /home_feed_web 404 in 3444ms

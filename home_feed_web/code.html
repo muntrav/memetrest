@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .masonry-grid {
+            columns: 2;
+            column-gap: 16px;
+        }
+        @media (min-width: 768px) {
+            .masonry-grid {
+                columns: 3;
+            }
+        }
+        @media (min-width: 1024px) {
+            .masonry-grid {
+                columns: 4;
+            }
+        }
+        @media (min-width: 1536px) {
+            .masonry-grid {
+                columns: 5;
+            }
+        }
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 16px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffafd3",
+                        "tertiary": "#a12e70",
+                        "on-secondary-fixed": "#001a42",
+                        "outline": "#7e7385",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#85145a",
+                        "on-surface-variant": "#4d4354",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "surface-container": "#e5eeff",
+                        "on-secondary-fixed-variant": "#004395",
+                        "tertiary-container": "#c0488a",
+                        "on-background": "#0b1c30",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-primary-fixed": "#2c0051",
+                        "tertiary-fixed": "#ffd8e7",
+                        "on-primary-container": "#fffbff",
+                        "surface": "#f8f9ff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-low": "#eff4ff",
+                        "primary-container": "#9c48ea",
+                        "background": "#f8f9ff",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "secondary": "#0058be",
+                        "primary": "#8127cf",
+                        "outline-variant": "#cfc2d6",
+                        "on-surface": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-container": "#2170e4",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#f0dbff",
+                        "surface-container-high": "#dce9ff",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-primary": "#ddb7ff",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#fffbff",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#842bd2",
+                        "on-tertiary-fixed": "#3d0026",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary-container": "#fefcff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-xl": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- Sidebar Navigation (Desktop) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-full w-24 lg:w-64 flex-col bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border-r border-white/20 z-50 p-6">
+<div class="mb-10 lg:px-4">
+<span class="text-2xl font-black tracking-tighter text-purple-600 dark:text-purple-400 bg-clip-text">Memetrest</span>
+</div>
+<nav class="flex flex-col gap-4">
+<!-- Home: Active State -->
+<a class="flex items-center gap-4 p-3 bg-purple-100/50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 rounded-2xl group transition-all" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="hidden lg:block font-headline-md text-body-lg">Home</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-zinc-400 dark:text-zinc-500 hover:bg-purple-50 dark:hover:bg-zinc-800 rounded-2xl transition-all group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">explore</span>
+<span class="hidden lg:block font-headline-md text-body-lg">Explore</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-zinc-400 dark:text-zinc-500 hover:bg-purple-50 dark:hover:bg-zinc-800 rounded-2xl transition-all group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">collections_bookmark</span>
+<span class="hidden lg:block font-headline-md text-body-lg">Collections</span>
+</a>
+<a class="flex items-center gap-4 p-3 text-zinc-400 dark:text-zinc-500 hover:bg-purple-50 dark:hover:bg-zinc-800 rounded-2xl transition-all group" href="#">
+<span class="material-symbols-outlined text-2xl group-hover:scale-110 transition-transform">person</span>
+<span class="hidden lg:block font-headline-md text-body-lg">Profile</span>
+</a>
+</nav>
+<div class="mt-auto lg:px-4">
+<button class="w-full bg-primary text-on-primary font-bold py-4 rounded-2xl shadow-[0_8px_20px_rgba(129,39,207,0.3)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center">
+<span class="material-symbols-outlined lg:mr-2">add_circle</span>
+<span class="hidden lg:block">Post Meme</span>
+</button>
+</div>
+</aside>
+<!-- Top AppBar (Mobile & Tablet Layout) -->
+<header class="md:hidden sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-white/20 h-16 flex items-center justify-between px-4">
+<span class="text-xl font-black tracking-tighter text-purple-600">Memetrest</span>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-zinc-500">search</span>
+<div class="w-8 h-8 rounded-full bg-primary-container"></div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="md:ml-24 lg:ml-64 p-4 md:p-8 min-h-screen">
+<!-- Search Bar Section -->
+<section class="max-w-4xl mx-auto mb-10 sticky top-4 z-40">
+<div class="relative group">
+<div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-zinc-400 group-focus-within:text-primary transition-colors">search</span>
+</div>
+<input class="block w-full pl-14 pr-4 py-4 bg-white/90 border-0 rounded-3xl shadow-[0_8px_32px_rgba(168,85,247,0.06)] focus:ring-2 focus:ring-primary/20 backdrop-blur-md transition-all text-body-lg font-medium" placeholder="Search for memes, stickers, or creators..." type="text"/>
+<div class="absolute inset-y-0 right-4 flex items-center gap-2">
+<button class="p-2 hover:bg-zinc-100 rounded-xl transition-colors">
+<span class="material-symbols-outlined text-zinc-400">tune</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Categories/Tags -->
+<section class="mb-8 overflow-x-auto no-scrollbar whitespace-nowrap flex gap-3 pb-2">
+<span class="bg-primary text-on-primary px-5 py-2 rounded-full font-label-sm text-sm cursor-pointer shadow-lg shadow-primary/20">All Memes</span>
+<span class="bg-white text-zinc-600 px-5 py-2 rounded-full font-label-sm text-sm cursor-pointer hover:bg-purple-50 transition-colors border border-zinc-100">🔥 Trending</span>
+<span class="bg-white text-zinc-600 px-5 py-2 rounded-full font-label-sm text-sm cursor-pointer hover:bg-purple-50 transition-colors border border-zinc-100">🎭 Surreal</span>
+<span class="bg-white text-zinc-600 px-5 py-2 rounded-full font-label-sm text-sm cursor-pointer hover:bg-purple-50 transition-colors border border-zinc-100">🎮 Gaming</span>
+<span class="bg-white text-zinc-600 px-5 py-2 rounded-full font-label-sm text-sm cursor-pointer hover:bg-purple-50 transition-colors border border-zinc-100">🐈 Cute Cats</span>
+<span class="bg-white text-zinc-600 px-5 py-2 rounded-full font-label-sm text-sm cursor-pointer hover:bg-purple-50 transition-colors border border-zinc-100">☕ Relatable</span>
+<span class="bg-white text-zinc-600 px-5 py-2 rounded-full font-label-sm text-sm cursor-pointer hover:bg-purple-50 transition-colors border border-zinc-100">💻 Dev Humour</span>
+</section>
+<!-- Fluid Masonry Grid -->
+<div class="masonry-grid">
+<!-- Card 1 -->
+<div class="masonry-item group relative overflow-hidden rounded-3xl bg-zinc-200 shadow-sm transition-all hover:scale-[1.02] hover:shadow-xl cursor-pointer">
+<img class="w-full object-cover" data-alt="whimsical orange tabby cat sitting on a plush velvet sofa with dramatic studio lighting and high contrast neon orange backglow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTCJUpbipBbz5VmSmfY-Afd5SjfMVNJU1Bd3FjKzhhj7_iSZsOsBBCqHohUAWNCM_7AnzfobItLa4XABTMWc2KRVR_TBGV3vtXrtLFkLivclcV_6NQOk9lziBDqZdXDo-QkaXmL737n_t5hXamdu4R0sdbByAblm5zJ-DPxJu7WICw6X6bTlLzsrZsw6iX-9CX8CPNbwcHVj1r_KAU-HswN4g0jYgVPbi9uQEB6rwi3woxgSA82OfLboSuZKPs0jFVpQeqFL9asUPM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a cheerful person with glowing skin and soft bokeh city lights background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcBwXy7mgDUHRz5KHlF_b5JOIxhDj3pWq1Jmi6q3rf6V56MMuYOMoYlIJ1AWCktw05_kYwqCTmzRk98PYg3hV3RVDtviukyJleXoxNIyexc9m3Vtupq3D2rLWEaIhLoxTsLQ8qo_hMrouMuMjFNetu63uaPjBgsLuNEWOttfkLLDxZRjPB8LRKaKykFWkZd0aHDSr4sJ2i_pxf4Dg2AIA2FxgEbl5jGVYsgBukyn_Y0CqEkuvzeoV9d_2E9gOKv1u9Mpm7gpuKJ0Ak"/>
+</div>
+<span class="text-white font-bold text-sm">CatMaster99</span>
+</div>
+<button class="bg-white/20 backdrop-blur-md p-2 rounded-xl text-white hover:bg-white/40">
+<span class="material-symbols-outlined">favorite</span>
+</button>
+</div>
+<div class="flex gap-2 overflow-hidden">
+<span class="bg-white/30 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-xs font-bold">#classic</span>
+<span class="bg-white/30 backdrop-blur-sm text-white px-3 py-1 rounded-lg text-xs font-bold">#cats</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="masonry-item group relative overflow-hidden rounded-3xl bg-zinc-200 shadow-sm transition-all hover:scale-[1.02] hover:shadow-xl cursor-pointer">
+<img class="w-full object-cover" data-alt="digital code scrolling on a futuristic screen with deep blue and purple bioluminescent neon color palette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzNiStkKY7HfbbyEW8537uBL_GMWE2_1YuQjmWHF3p59npT_Yrl4sw8hJoc3Qp0xZuRozl-eik1A2j5BqlMMA-i9Gdh-M_Zsp77WsQgJB87VWSDv9md5ab9knzhLbA2B1-LWXxmbwHdyFnpcFgBLyXFru0aPvhStU2nhMDIx3fzbfPFG_yayfwinA91KYKo4-I2fV7cuyHGgy1MKHC0urPe2zOGoYuFyzPhqdTXHRzKSPOp-z_nvW9mZ-oF1Dp480xUw29SuF-APkw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+<p class="text-white font-bold mb-4">When you fix one bug and five more appear 🤡</p>
+<div class="flex items-center justify-between">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full border-2 border-white bg-blue-500"></div>
+<div class="w-6 h-6 rounded-full border-2 border-white bg-green-500"></div>
+<div class="w-6 h-6 rounded-full border-2 border-white bg-red-500"></div>
+</div>
+<span class="text-white/80 text-xs font-medium">12.4k Likes</span>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="masonry-item group relative overflow-hidden rounded-3xl bg-zinc-200 shadow-sm transition-all hover:scale-[1.02] hover:shadow-xl cursor-pointer">
+<img class="w-full object-cover" data-alt="abstract flowing 3d shapes in vibrant magenta and cyan with smooth glassmorphism textures and floating particles" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcqH79lrU74CVXrU32Q5U7dWm5XgsUz93SylN5UsqqSMF2gkJLajsfX1kF3MrRQclw6Z7iMEg4yeN_KBYEJ_fKVJlA4vNK2t_Ukt9yAKnVFFOd4o27vqHVDtJ8_atqGIc9rqS-ASHNfkGPne4d2Ry89nIFoHMJyJpHqWF5n6kSSYP08WVQcvI-tpLGEJoNjdp8iXbjFM5n-dLMSfBk4TqB18yLmMK_idNqb5cBBXsE-4yExnX85ZgKOzKOSBac4CsgnfrxPbvG6XAs"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-purple-400" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-white font-bold">Featured Aesthetic</span>
+</div>
+<button class="w-full bg-white text-primary py-2 rounded-xl font-bold">Remix This</button>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="masonry-item group relative overflow-hidden rounded-3xl bg-zinc-200 shadow-sm transition-all hover:scale-[1.02] hover:shadow-xl cursor-pointer">
+<img class="w-full object-cover" data-alt="vintage desktop computer setup with retro gaming accessories and colorful aesthetic neon lighting in a vaporwave style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk0pUFOa5T_8lQAQsaYZauRl1S6j3CBYWIZR_R1mXuaVEBb5_fnzotYtmQslHP5qK3v5vU1CaU7HoJRzrr30RhVnzUX9_K7pKuScBy-QVHW9AhtsQrIidkX3PZ6lTLmdD-i3e9QFVutCJ6aYpDAAi-Fv_FS-S1JVDl9sJ_t8POzmNZG81eujsMTibY04oYkbYzdhTSUKDA3m63Oc6bpXTFfjlfJTgg0tZnhGkcSwLbAmDaqM9pxUgQZ0UkpEauA9sHSq0hu78_K4Ik"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+<span class="text-white font-bold text-lg">Nostalgia Hits Different</span>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="masonry-item group relative overflow-hidden rounded-3xl bg-zinc-200 shadow-sm transition-all hover:scale-[1.02] hover:shadow-xl cursor-pointer">
+<img class="w-full object-cover" data-alt="hyper-realistic wide-eyed golden retriever puppy looking up at the camera with innocent expression in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqgshsIWSNsqFd8I_Ceo5ru9E4RlLJZzCGSzN10Fu1o3eSNEyqbSpMJlux5h61DmU49t5s-nBn8oSIFS3UIkXYCF0XlP9gpiHTl-WXVfGLqpt_uwwb165fSFkmb7XGw-8ZDUkVZSmsOmpVrbk6KSEyE0vDwRfyPRkAynMRyCJ9GSpQmvxwwBPjWIirmHoPiF3HWCc5HJvtAOJvTJNNoxE8W1OPtq3RuPHaaNoyrFGzamm7QUk_Am-5T_6NKDvPEZ3jN34CJ49HKlxd"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+<div class="flex justify-between items-center">
+<span class="text-white font-black italic">Mood.</span>
+<div class="bg-white/20 p-2 rounded-full">
+<span class="material-symbols-outlined text-white">bookmark</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 6 -->
+<div class="masonry-item group relative overflow-hidden rounded-3xl bg-zinc-200 shadow-sm transition-all hover:scale-[1.02] hover:shadow-xl cursor-pointer">
+<img class="w-full object-cover" data-alt="cinematic shot of an old film camera on a wooden table with soft morning sunlight streaming through a window" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7RQdAFsni5zvBm2kePpstBl52xAyS7yRb6-DDphzqwgTGLyEgAlrQT7dhTPmqPWk2P1WBklUWtFn-ShDIboK4OQXmzlaeqa372ssh5ZeNSyL8Ge-iPAFaQdNId_sVvKSF0ArY8_bGHjvjws9e8glIq41cypiLnPvlos__ehmfGjyau-1DHt_37mwRDBYHylf-oeArEx3f2xLRLEE-2cuugy1LlzgcXctA5H4Zxyv1uqV94G3ry2_ZBjOyPQpPMAJnU2CHcuMiLy7c"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5">
+<span class="text-white/60 text-xs mb-1">Uploaded by VisualVibes</span>
+<span class="text-white font-bold">Cinema Core</span>
+</div>
+</div>
+<!-- Card 7 -->
+<div class="masonry-item group relative overflow-hidden rounded-3xl bg-zinc-200 shadow-sm transition-all hover:scale-[1.02] hover:shadow-xl cursor-pointer">
+<img class="w-full object-cover" data-alt="abstract digital matrix with glowing green binary numbers flowing in vertical streams on a deep black background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGpPPhGcUS5o1MFIbVtNXMYyAT5vdjOdD004pWnyxUHmNyNUHgClx-6aCF70Tit99H_7u14klb4ZxwWOYQz4vTLGue2BxhiXIfDOH_rXiHhQuDarFNR59WMvr9_3sjk3JhS0gIOc3366HmnmTG5mNadHgCRkJogZ3-H6oz2kGJFNnEs71E6ld2SfYYrQDQeY9W6lqh-1qFCw7mLEmjlOBKxMuM084x_PC1-_uPwmx9PbGAFaoAicmOo0TVVErYkuEYifDG8nSDG6Bu"/>
+</div>
+<!-- Card 8 -->
+<div class="masonry-item group relative overflow-hidden rounded-3xl bg-zinc-200 shadow-sm transition-all hover:scale-[1.02] hover:shadow-xl cursor-pointer">
+<img class="w-full object-cover" data-alt="majestic mountain peak at sunset with vibrant pink and orange clouds and snow capped summit" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE05BISAKuMzZkM00JWrGPoBJQgXjirBdJpSFNO7uTsq5OxYnP0u7pUlKpNXDIBgYgVY-70CNyWPidlh___MfUpmk24rJHgkE_lqTgd54FxC_aNNQ-27PuKQ0J0AOrNACt-49KS2JDYI21g6-lnTJJWIFwiPdBkY0TMftu82SUfnkzSlSpcIUpAwy64osqWd9aFvmepsSxdl-XNQNOlxDPPZlqAfYapk11KGGBsA94TkC1LwdCrQYLgt7A4kSb62pMmdOMIy-yn2x8"/>
+</div>
+</div>
+<!-- Floating Action Button for Mobile -->
+<button class="md:hidden fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center z-50">
+<span class="material-symbols-outlined">add</span>
+</button>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-white/80 backdrop-blur-xl border-t border-white/20 h-20 flex justify-around items-center px-6 pb-safe z-50 rounded-t-2xl shadow-[0_-8px_32px_rgba(168,85,247,0.12)]">
+<a class="bg-purple-100/50 text-purple-600 rounded-xl p-2 scale-110" href="#">
+<span class="material-symbols-outlined">home</span>
+</a>
+<a class="text-zinc-400 p-2" href="#">
+<span class="material-symbols-outlined">explore</span>
+</a>
+<a class="text-zinc-400 p-2" href="#">
+<span class="material-symbols-outlined">collections_bookmark</span>
+</a>
+<a class="text-zinc-400 p-2" href="#">
+<span class="material-symbols-outlined">person</span>
+</a>
+</nav>
+</body></html>
