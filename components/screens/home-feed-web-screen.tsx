@@ -1,4 +1,6 @@
-import React, { type ReactNode } from "react";
+"use client";
+
+import React, { type ReactNode, useState, useMemo } from "react";
 import Link from "next/link";
 import { DesktopSidebar } from "@/components/navigation/desktop-sidebar";
 import { MobileBottomNav } from "@/components/navigation/mobile-bottom-nav";
@@ -177,6 +179,18 @@ const categoryChips: CategoryChip[] = [
 ] as const;
 
 export function HomeFeedWebScreen() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredCards = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return cards;
+    }
+    const query = searchQuery.toLowerCase();
+    return cards.filter((card) =>
+      card.alt.toLowerCase().includes(query)
+    );
+  }, [searchQuery]);
+
   return (
     <div className="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container">
       <DesktopSidebar active="home" />
@@ -205,11 +219,13 @@ export function HomeFeedWebScreen() {
                 search
               </MaterialIcon>
             </div>
-            <Link href={routes.search}>
-              <span className="block w-full rounded-3xl bg-white/90 py-4 pl-14 pr-4 text-body-lg font-medium shadow-[0_8px_32px_rgba(168,85,247,0.06)] backdrop-blur-md transition-all">
-                Search for memes, stickers, or creators...
-              </span>
-            </Link>
+            <input
+              type="text"
+              placeholder="Search for memes, stickers, or creators..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="block w-full rounded-3xl bg-white/90 py-4 pl-14 pr-4 text-body-lg font-medium shadow-[0_8px_32px_rgba(168,85,247,0.06)] backdrop-blur-md transition-all outline-none ring-2 ring-transparent focus:ring-primary"
+            />
             <div className="absolute inset-y-0 right-4 flex items-center gap-2">
               <button className="rounded-xl p-2 transition-colors hover:bg-zinc-100" type="button">
                 <MaterialIcon className="text-zinc-400">tune</MaterialIcon>
@@ -234,25 +250,32 @@ export function HomeFeedWebScreen() {
           ))}
         </section>
 
-        <div className="[column-count:2] gap-4 md:[column-count:3] lg:[column-count:4] 2xl:[column-count:5]">
-          {cards.map((card) => (
-            <div
-              className="masonry-item group relative overflow-hidden rounded-3xl bg-zinc-200 shadow-sm transition-all hover:scale-[1.02] hover:shadow-xl"
-              key={card.image}
-            >
-              <Link href={routes.detail}>
-                <AppImage
-                  alt={card.alt}
-                  className={`w-full object-cover ${card.ratio}`}
-                  sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  src={card.image}
-                />
-                {card.overlay ?? null}
-                {card.footer ?? null}
-              </Link>
-            </div>
-          ))}
-        </div>
+        {filteredCards.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-20">
+            <MaterialIcon className="text-6xl text-zinc-300">search_off</MaterialIcon>
+            <p className="mt-4 text-lg text-zinc-500">No memes found for "{searchQuery}"</p>
+          </div>
+        ) : (
+          <div className="[column-count:2] gap-4 md:[column-count:3] lg:[column-count:4] 2xl:[column-count:5]">
+            {filteredCards.map((card) => (
+              <div
+                className="masonry-item group relative overflow-hidden rounded-3xl bg-zinc-200 shadow-sm transition-all hover:scale-[1.02] hover:shadow-xl"
+                key={card.image}
+              >
+                <Link href={routes.detail}>
+                  <AppImage
+                    alt={card.alt}
+                    className={`w-full object-cover ${card.ratio}`}
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                    src={card.image}
+                  />
+                  {card.overlay ?? null}
+                  {card.footer ?? null}
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
 
         <button className="fixed bottom-24 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-on-primary shadow-2xl md:hidden">
           <MaterialIcon>add</MaterialIcon>

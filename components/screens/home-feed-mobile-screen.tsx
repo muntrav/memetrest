@@ -1,4 +1,6 @@
-import React, { type ReactNode } from "react";
+"use client";
+
+import React, { type ReactNode, useState, useMemo } from "react";
 import Link from "next/link";
 import { MobileBottomNav } from "@/components/navigation/mobile-bottom-nav";
 import { AppImage } from "@/components/ui/app-image";
@@ -128,6 +130,18 @@ const cards: MobileCard[] = [
 ] as const;
 
 export function HomeFeedMobileScreen() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredCards = useMemo(() => {
+    if (!searchQuery.trim()) {
+      return cards;
+    }
+    const query = searchQuery.toLowerCase();
+    return cards.filter((card) =>
+      card.alt.toLowerCase().includes(query)
+    );
+  }, [searchQuery]);
+
   return (
     <div className="min-h-screen bg-background font-body-md text-on-background selection:bg-primary-fixed md:px-6 md:py-8">
       <div className="relative mx-auto min-h-screen max-w-[430px] bg-background md:min-h-[820px] md:overflow-hidden md:rounded-[32px] md:border md:border-white/40 md:bg-white/70 md:shadow-[0_20px_60px_rgba(129,39,207,0.12)] md:backdrop-blur-xl">
@@ -141,14 +155,18 @@ export function HomeFeedMobileScreen() {
               </Link>
             </div>
             <div className="flex-1 px-4">
-              <Link className="group relative flex items-center" href={routes.search}>
+              <div className="group relative flex items-center">
                 <MaterialIcon className="absolute left-3 text-zinc-400 transition-colors group-focus-within:text-primary">
                   search
                 </MaterialIcon>
-                <span className="glass-blur h-10 w-full rounded-full bg-surface-container-low pl-10 pr-4 leading-10 text-on-surface text-zinc-500">
-                  Search memes...
-                </span>
-              </Link>
+                <input
+                  type="text"
+                  placeholder="Search memes..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="glass-blur h-10 w-full rounded-full bg-surface-container-low pl-10 pr-4 text-on-surface outline-none ring-2 ring-transparent focus:ring-primary transition-all"
+                />
+              </div>
             </div>
             <Link
               className="h-10 w-10 overflow-hidden rounded-full border-2 border-primary-fixed transition-transform duration-200 hover:scale-105"
@@ -186,27 +204,34 @@ export function HomeFeedMobileScreen() {
         </nav>
 
         <main className="mx-auto max-w-7xl pb-24">
-          <div className="grid grid-cols-2 gap-4 p-4">
-            {cards.map((card) => (
-              <div
-                className="group relative overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm transition-all duration-300 hover:shadow-xl"
-                key={card.image}
-              >
-                <Link href={routes.detail}>
-                  <AppImage
-                    alt={card.alt}
-                    className={`w-full object-cover ${card.ratio}`}
-                    priority={card.image === cards[0].image}
-                    sizes="50vw"
-                    src={card.image}
-                  />
-                  {card.header ?? null}
-                  {card.overlay ?? null}
-                  {card.footer ?? null}
-                </Link>
-              </div>
-            ))}
-          </div>
+          {filteredCards.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-20">
+              <MaterialIcon className="text-6xl text-zinc-300">search_off</MaterialIcon>
+              <p className="mt-4 text-lg text-zinc-500">No memes found for "{searchQuery}"</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-4 p-4">
+              {filteredCards.map((card) => (
+                <div
+                  className="group relative overflow-hidden rounded-xl bg-surface-container-lowest shadow-sm transition-all duration-300 hover:shadow-xl"
+                  key={card.image}
+                >
+                  <Link href={routes.detail}>
+                    <AppImage
+                      alt={card.alt}
+                      className={`w-full object-cover ${card.ratio}`}
+                      priority={card.image === cards[0].image}
+                      sizes="50vw"
+                      src={card.image}
+                    />
+                    {card.header ?? null}
+                    {card.overlay ?? null}
+                    {card.footer ?? null}
+                  </Link>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="flex justify-center py-lg">
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary/20 border-t-primary" />
