@@ -34,6 +34,7 @@ The database provider for v1 is Supabase Postgres, but the schema is designed to
 - `profiles`
 - `posts`
 - `post_assets`
+- `temp_image_uploads`
 - `post_tags`
 - `follows`
 - `follow_requests`
@@ -303,6 +304,45 @@ Indexes:
 - unique composite index on (`storage_provider`, `storage_key`)
 - composite index on (`post_id`, `sort_order`)
 
+## Table: `temp_image_uploads`
+
+Short-lived upload intent records for image publishing.
+
+Columns:
+
+- `id` UUID PK
+- `owner_user_id` UUID not null FK -> `users.id`
+- `storage_provider` TEXT not null
+- `bucket_name` TEXT not null
+- `storage_key` TEXT not null unique
+- `original_filename` TEXT not null
+- `content_type` TEXT not null
+- `size_bytes` BIGINT not null
+- `checksum_sha256` TEXT nullable
+- `status` TEXT not null default `pending`
+- `expires_at` TIMESTAMPTZ not null
+- `uploaded_at` TIMESTAMPTZ nullable
+- `consumed_at` TIMESTAMPTZ nullable
+- `created_at` TIMESTAMPTZ not null default now()
+- `updated_at` TIMESTAMPTZ not null default now()
+
+Allowed values:
+
+- `status`: `pending`, `uploaded`, `consumed`, `expired`
+
+Rules:
+
+- upload intents are owned by a single user and can only be consumed once
+- temp uploads expire independently of session state
+- object metadata lives here until a real `post_assets` row is created
+- v1 uses these rows only for image publishing, but the pattern should remain provider-portable
+
+Indexes:
+
+- unique index on `storage_key`
+- composite index on (`owner_user_id`, `status`, `created_at desc`)
+- index on `expires_at`
+
 ## Table: `post_tags`
 
 Normalized tag mapping.
@@ -535,6 +575,7 @@ Indexes:
 - `profiles` own `boards`
 - `boards` own `board_items`
 - `posts` own `post_assets` and `post_tags`
+- `users` own `temp_image_uploads`
 - `users` with admin role own `featured_content` creation and `moderation_actions`
 
 ## Privacy And Access Rules

@@ -4,7 +4,7 @@ Last updated: 2026-04-23
 
 ## Current Phase
 
-Planning, solution architecture, data modeling, API contracts, backend implementation slice 1, live deployment/keepalive setup, and browse UI integration are complete for the current v1 baseline.
+Planning, solution architecture, data modeling, API contracts, backend implementation slice 1, live deployment/keepalive setup, browse UI integration, and content publishing slice 1 are complete for the current v1 baseline.
 
 ## Completed Work
 
@@ -25,8 +25,11 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - aligned the schema with the v1 contract by adding post-level visibility to `posts`
 - wired the desktop and mobile home, discovery, and detail screens to the live browse services instead of curated placeholder cards
 - added server-side session lookup for page-level auth-aware rendering and view-model mapping for live browse content
+- added temp image upload persistence, Supabase Storage signed upload intents, and `POST /api/v1/uploads/images`
+- added real post creation from uploaded images via `POST /api/v1/posts`, including image metadata extraction and checksum verification
 - added focused backend tests for password hashing and auth input validation
 - connected the workspace to the live Supabase project and verified migrations and auth flows against it
+- verified a full local end-to-end publish flow against Supabase: signup, upload intent, direct image upload, post creation, and post detail retrieval
 - added a GitHub Actions heartbeat workflow and deploy runbook for inactivity protection
 - created and deployed the Vercel project at `https://memetrest.vercel.app`
 - connected the GitHub repository to Vercel and verified a successful production deployment
@@ -60,6 +63,7 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - feed ranking can ship with a simple strategy first, but cursor stability must hold
 - privacy enforcement must be applied consistently across posts, profiles, boards, and follow relationships
 - upload finalization must prevent orphaned temp assets and duplicate post creation
+- temp uploads currently remain in their `temp/` object path after promotion; lifecycle cleanup and final object moves are still open
 - admin moderation actions need auditable write paths from day one
 - browse UI is now live for home, discovery, and detail, but the interaction buttons on those surfaces still mostly point to future slices
 - password reset currently creates persisted reset tokens, but email delivery is not wired yet
