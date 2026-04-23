@@ -24,3 +24,15 @@ export function getAppBaseUrl(): string {
 export function getSessionCookieName(): string {
   return readEnv("MEMETREST_SESSION_COOKIE_NAME") ?? "memetrest_session";
 }
+
+export function getSupabaseUrl(): string {
+  return getRequiredEnv("SUPABASE_URL");
+}
+
+export function getSupabaseServiceRoleKey(): string {
+  return getRequiredEnv("SUPABASE_SERVICE_ROLE_KEY");
+}
+
+export function getUploadsBucketName(): string {
+  return readEnv("MEMETREST_UPLOADS_BUCKET") ?? "memetrest-media";
+}
