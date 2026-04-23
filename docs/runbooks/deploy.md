@@ -6,6 +6,12 @@ Last updated: 2026-04-23
 
 This runbook documents the production secret and scheduler setup needed for the Memetrest keepalive heartbeat.
 
+## Live Deployment
+
+- production app: [https://memetrest.vercel.app](https://memetrest.vercel.app)
+- GitHub repository: [https://github.com/muntrav/memetrest](https://github.com/muntrav/memetrest)
+- heartbeat workflow runbook target: `POST /api/internal/heartbeat`
+
 ## Why This Exists
 
 Supabase Free projects may be paused after low activity periods. The heartbeat setup avoids touching user-facing tables and gives the production app a dedicated external keepalive path.
@@ -40,6 +46,10 @@ Recommended `HEARTBEAT_URL`:
 
 - `https://<your-production-domain>/api/internal/heartbeat`
 
+Current configured value:
+
+- `https://memetrest.vercel.app/api/internal/heartbeat`
+
 `HEARTBEAT_TOKEN` must match the deployed app's `HEARTBEAT_TOKEN`.
 
 ## Scheduler Behavior
@@ -63,6 +73,12 @@ from public.heartbeat
 where name = 'project-keepalive';
 ```
 
+Current verified behavior:
+
+- workflow dispatch succeeded from GitHub Actions
+- the deployed endpoint accepted the bearer token
+- `public.heartbeat` was updated with `source = 'github-actions'`
+
 ## Rotation Procedure
 
 1. Generate a new random `HEARTBEAT_TOKEN`.
@@ -79,5 +95,6 @@ where name = 'project-keepalive';
 
 ## Notes
 
-- This repo currently has no git remote configured locally, so the workflow file is prepared but not yet pushed anywhere.
+- The repository is now pushed to GitHub under `muntrav/memetrest`.
+- The Vercel project is linked to the GitHub repository for future deployments.
 - External scheduling is preferred over an internal-only cron for inactivity protection because it creates real outside traffic against the deployed project.

@@ -4,7 +4,7 @@ Last updated: 2026-04-23
 
 ## Current Phase
 
-Planning, solution architecture, data modeling, API contracts, backend implementation slice 1, and Supabase keepalive setup are complete for the current v1 baseline.
+Planning, solution architecture, data modeling, API contracts, backend implementation slice 1, and live deployment/keepalive setup are complete for the current v1 baseline.
 
 ## Completed Work
 
@@ -23,6 +23,9 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - added focused backend tests for password hashing and auth input validation
 - connected the workspace to the live Supabase project and verified migrations and auth flows against it
 - added a GitHub Actions heartbeat workflow and deploy runbook for inactivity protection
+- created and deployed the Vercel project at `https://memetrest.vercel.app`
+- connected the GitHub repository to Vercel and verified a successful production deployment
+- configured GitHub Actions secrets and verified the heartbeat workflow updates `public.heartbeat` in Supabase
 
 ## Required Next Skill
 
@@ -46,7 +49,7 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - follow and follow-request services for private profile access
 - admin moderation and seed-content route handlers
 - email delivery adapter for password reset before production
-- integration of the staged heartbeat workflow into the actual GitHub repository once a remote is configured
+- content and interaction backend slices on top of the now-live infra baseline
 
 ## Open Risks
 
@@ -56,7 +59,7 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - admin moderation actions need auditable write paths from day one
 - password reset currently creates persisted reset tokens, but email delivery is not wired yet
 - database-backed integration tests need a test Postgres/Supabase connection
-- the keepalive workflow file exists locally but cannot run until this repo is pushed to GitHub and repository secrets are configured
+- there is no observability or alerting yet around heartbeat failures, deployment failures, or API incidents
 
 ## Assumptions Made
 
@@ -66,7 +69,8 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - public board pages are shareable by URL, while private boards remain owner-authorized only
 - Supabase is the initial Postgres provider, but repositories must stay provider-portable
 - the heartbeat path is operationally necessary on the Free plan but is not part of the user-facing product domain
+- production currently runs on Vercel with GitHub-connected deployments under `muntrav/memetrest`
 
 ## Blockers
 
-- no git remote is configured in this local repository, so the GitHub Actions scheduler cannot be activated from this workspace yet
+- no active blockers for the next backend slice
