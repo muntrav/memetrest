@@ -21,6 +21,8 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - implemented custom email/password auth, password reset token persistence, app-owned sessions, and profile/privacy update services
 - added `/api/v1/auth/*` and `/api/v1/me*` route handlers aligned to the OpenAPI contract
 - added v1 board list/create/update/delete/reorder/detail routes and replaced the collections JSON store path with Postgres-backed board data
+- added feed, search, and post-detail read routes with cursor pagination and privacy-aware visibility enforcement
+- aligned the schema with the v1 contract by adding post-level visibility to `posts`
 - added focused backend tests for password hashing and auth input validation
 - connected the workspace to the live Supabase project and verified migrations and auth flows against it
 - added a GitHub Actions heartbeat workflow and deploy runbook for inactivity protection
@@ -45,11 +47,11 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 ## Expected Deliverables From Next Backend Slice
 
 - content/media repositories and services for image upload intent and post creation
-- feed and search read services with privacy and moderation filtering
 - board item save/remove flows on top of the new board repositories and services
 - follow and follow-request services for private profile access
 - admin moderation and seed-content route handlers
 - email delivery adapter for password reset before production
+- frontend integration of the live browse APIs into home, discovery, and detail surfaces
 - content and interaction backend slices on top of the now-live infra baseline
 
 ## Open Risks
@@ -58,6 +60,7 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - privacy enforcement must be applied consistently across posts, profiles, boards, and follow relationships
 - upload finalization must prevent orphaned temp assets and duplicate post creation
 - admin moderation actions need auditable write paths from day one
+- browse UI is still rendering curated static cards; the live feed/search APIs now exist but are not yet wired into those screens
 - password reset currently creates persisted reset tokens, but email delivery is not wired yet
 - database-backed integration tests need a test Postgres/Supabase connection
 - there is no observability or alerting yet around heartbeat failures, deployment failures, or API incidents

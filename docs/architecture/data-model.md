@@ -234,6 +234,7 @@ Columns:
 - `id` UUID PK
 - `author_profile_id` UUID not null FK -> `profiles.id`
 - `caption` TEXT not null default `''`
+- `visibility` TEXT not null default `public`
 - `status` TEXT not null default `published`
 - `moderation_status` TEXT not null default `visible`
 - `featured_rank` INTEGER nullable
@@ -243,11 +244,15 @@ Columns:
 
 Allowed values:
 
+Allowed values:
+
+- `visibility`: `public`, `private`
 - `status`: `draft`, `published`, `archived`
 - `moderation_status`: `visible`, `removed`
 
 Rules:
 
+- private posts are visible only to the author in v1
 - v1 posts are visible only when `status = published` and `moderation_status = visible`
 - post access must also respect the author profile visibility
 
