@@ -6,7 +6,8 @@ import { HomeFeedMobileScreen } from "@/components/screens/home-feed-mobile-scre
 import { HomeFeedWebScreen } from "@/components/screens/home-feed-web-screen";
 import { MemeDetailViewScreen } from "@/components/screens/meme-detail-view-screen";
 import type { CollectionBoard, CollectionsSummary } from "@/lib/collections/types";
-import { routes } from "@/lib/routes";
+import type { FeedCardViewModel, FeedLaneViewModel } from "@/lib/posts/presentation";
+import { postDetailHref, routes } from "@/lib/routes";
 
 const collectionBoards: CollectionBoard[] = [
   {
@@ -29,9 +30,61 @@ const collectionsSummary: CollectionsSummary = {
   taggedBoardPercentage: 100
 };
 
+const homeCards: FeedCardViewModel[] = [
+  {
+    id: "post-cat",
+    href: postDetailHref("post-cat"),
+    imageUrl:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuAWLLaLrNmdcOH5uN-QEspmSvhyEUHxx8XM0mOvRlwEb-rrhqyd5q873uaPt2wmTYX5BP2i6_TljiK0a6W8kx_2PR8DvAzeajpnQkr7ZN0DceLUpqHdOjdYhdsevIL_ekBv7fvj-02fXyFT_KON89T0uCsBRaqYStWyZ_gQivAcWt19jBgEWSvZNNbfCKtfWjX2CbsZ9Zoke6TuGj1Kc6OHzKkvHUiiZcsSvosTSXR7N7We7_eaAtTc2PtVnOqEUomonKI_j4PspQtn",
+    imageAlt: "Confused cartoon cat by Meme Artist",
+    aspectRatio: "3 / 4",
+    headline: "Confused cartoon cat",
+    supportingText: "When the deploy works locally",
+    creatorName: "Meme Artist",
+    creatorUsername: "@meme_artist",
+    creatorAvatarUrl: null,
+    tags: ["cats", "deploy"],
+    saveCountLabel: "12k"
+  },
+  {
+    id: "post-mountain",
+    href: postDetailHref("post-mountain"),
+    imageUrl:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuDE05BISAKuMzZkM00JWrGPoBJQgXjirBdJpSFNO7uTsq5OxYnP0u7pUlKpNXDIBgYgVY-70CNyWPidlh___MfUpmk24rJHgkE_lqTgd54FxC_aNNQ-27PuKQ0J0AOrNACt-49KS2JDYI21g6-lnTJJWIFwiPdBkY0TMftu82SUfnkzSlSpcIUpAwy64osqWd9aFvmepsSxdl-XNQNOlxDPPZlqAfYapk11KGGBsA94TkC1LwdCrQYLgt7A4kSb62pMmdOMIy-yn2x8",
+    imageAlt: "Majestic mountain peak meme by Summit Poster",
+    aspectRatio: "3 / 4",
+    headline: "Majestic mountain peak at sunset",
+    supportingText: "Weekend energy",
+    creatorName: "Summit Poster",
+    creatorUsername: "@summit",
+    creatorAvatarUrl: null,
+    tags: ["nature"],
+    saveCountLabel: "840"
+  }
+];
+
+const homeLanes: FeedLaneViewModel[] = [
+  {
+    key: "all",
+    label: "All Memes",
+    cards: homeCards
+  },
+  {
+    key: "trending",
+    label: "Trending",
+    cards: [homeCards[0]]
+  }
+];
+
+const detailPost = {
+  ...homeCards[0],
+  savedBoardCount: 2,
+  followerCountLabel: "2,400"
+};
+
 describe("screen routing", () => {
   it("renders desktop home navigation routes", () => {
-    render(<HomeFeedWebScreen />);
+    render(<HomeFeedWebScreen lanes={homeLanes} />);
 
     expect(
       screen
@@ -61,7 +114,7 @@ describe("screen routing", () => {
   });
 
   it("renders mobile home routes and detail links", () => {
-    render(<HomeFeedMobileScreen />);
+    render(<HomeFeedMobileScreen lanes={homeLanes} />);
 
     expect(
       screen
@@ -89,27 +142,23 @@ describe("screen routing", () => {
         .some((element) => element.getAttribute("href") === routes.profile)
     ).toBe(true);
 
-    const image = screen.getByAltText(
-      /confused cartoon cat with vibrant neon colors/i
-    );
-    expect(image.closest("a")).toHaveAttribute("href", routes.detail);
+    const image = screen.getByAltText(/confused cartoon cat by meme artist/i);
+    expect(image.closest("a")).toHaveAttribute("href", `${routes.detail}?post=post-cat`);
   });
 
   it("filters desktop home cards with the inline search field", () => {
-    render(<HomeFeedWebScreen />);
+    render(<HomeFeedWebScreen lanes={homeLanes} />);
 
     fireEvent.change(screen.getByPlaceholderText(/search for memes, stickers, or creators/i), {
       target: { value: "mountain" }
     });
 
-    expect(screen.getByAltText(/majestic mountain peak at sunset/i)).toBeInTheDocument();
-    expect(
-      screen.queryByAltText(/whimsical orange tabby cat sitting on a plush velvet sofa/i)
-    ).not.toBeInTheDocument();
+    expect(screen.getByAltText(/majestic mountain peak meme by summit poster/i)).toBeInTheDocument();
+    expect(screen.queryByAltText(/confused cartoon cat by meme artist/i)).not.toBeInTheDocument();
   });
 
   it("shows the mobile empty state when search has no matches", () => {
-    render(<HomeFeedMobileScreen />);
+    render(<HomeFeedMobileScreen lanes={homeLanes} />);
 
     fireEvent.change(screen.getByPlaceholderText(/search memes/i), {
       target: { value: "not-a-real-meme" }
@@ -130,7 +179,14 @@ describe("screen routing", () => {
   });
 
   it("renders detail page cross-route links", () => {
-    render(<MemeDetailViewScreen />);
+    render(
+      <MemeDetailViewScreen
+        post={detailPost}
+        relatedItems={[homeCards[1]]}
+        statusDescription={null}
+        statusTitle={null}
+      />
+    );
 
     expect(
       screen
@@ -140,7 +196,7 @@ describe("screen routing", () => {
 
     expect(
       screen
-        .getAllByAltText(/professional minimalist 3D avatar of a digital artist/i)
+        .getAllByText(/meme artist/i)
         .some((element) => element.closest("a")?.getAttribute("href") === routes.profile)
     ).toBe(true);
   });
