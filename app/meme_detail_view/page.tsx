@@ -86,6 +86,7 @@ export default async function MemeDetailViewPage({
           ? {
               ...mapPostDetailToFeedCard(detail),
               savedBoardCount: detail.boardSaveState.savedBoardIds.length,
+              savedBoardIds: detail.boardSaveState.savedBoardIds,
               followerCountLabel: creatorProfile
                 ? creatorProfile.followerCount.toLocaleString()
                 : null

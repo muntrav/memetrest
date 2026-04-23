@@ -7,9 +7,11 @@ import { AppImage } from "@/components/ui/app-image";
 import { MaterialIcon } from "@/components/ui/material-icon";
 import type { FeedCardViewModel } from "@/lib/posts/presentation";
 import { routes } from "@/lib/routes";
+import { SaveToBoardButton } from "@/components/screens/save-to-board-button";
 
 type MemeDetailScreenPost = FeedCardViewModel & {
   savedBoardCount: number;
+  savedBoardIds: string[];
   followerCountLabel: string | null;
 };
 
@@ -210,13 +212,11 @@ export function MemeDetailViewScreen({
                 </div>
 
                 <div className="mt-6 grid grid-cols-2 gap-sm">
-                  <Link
-                    className="flex items-center justify-center gap-xs rounded-xl bg-secondary py-md font-label-sm text-on-secondary shadow-md"
-                    href={routes.collections}
-                  >
-                    <MaterialIcon>bookmark</MaterialIcon>
-                    Save to Board
-                  </Link>
+                  <SaveToBoardButton
+                    buttonClassName="flex items-center justify-center gap-xs rounded-xl bg-secondary py-md font-label-sm text-on-secondary shadow-md"
+                    initialSavedBoardIds={post.savedBoardIds}
+                    postId={post.id}
+                  />
                   <button
                     className="flex items-center justify-center gap-xs rounded-xl bg-surface-container-high py-md font-label-sm text-on-secondary-container"
                     type="button"
@@ -364,13 +364,11 @@ export function MemeDetailViewScreen({
               </div>
 
               <div className="grid grid-cols-2 gap-sm">
-                <Link
-                  className="flex items-center justify-center gap-xs rounded-xl bg-secondary py-md font-label-sm text-on-secondary shadow-md transition-all active:scale-95"
-                  href={routes.collections}
-                >
-                  <MaterialIcon>bookmark</MaterialIcon>
-                  Save to Board
-                </Link>
+                <SaveToBoardButton
+                  buttonClassName="flex items-center justify-center gap-xs rounded-xl bg-secondary py-md font-label-sm text-on-secondary shadow-md transition-all active:scale-95"
+                  initialSavedBoardIds={post.savedBoardIds}
+                  postId={post.id}
+                />
                 <button
                   className="flex items-center justify-center gap-xs rounded-xl bg-surface-container-high py-md font-label-sm text-on-secondary-container transition-all active:scale-95"
                   type="button"

@@ -10,7 +10,7 @@ import type {
   CollectionFilter,
   CollectionsSummary
 } from "@/lib/collections/types";
-import { routes, type RoutePath } from "@/lib/routes";
+import { boardDetailHref, routes, type RoutePath } from "@/lib/routes";
 
 const filters = [
   { key: "all", label: "All Boards" },
@@ -121,7 +121,7 @@ export function CollectionsScreen({
                   <div className="group flex flex-col gap-3" key={board.id}>
                     <Link
                       className="grid aspect-[4/3] grid-cols-3 grid-rows-2 gap-1 overflow-hidden rounded-3xl shadow-sm transition-all duration-300 group-hover:shadow-xl"
-                      href={routes.detail}
+                      href={boardDetailHref(board.slug ?? board.id)}
                     >
                       <div className="col-span-2 row-span-2 overflow-hidden">
                         <AppImage
@@ -300,7 +300,7 @@ export function CollectionsScreen({
               <div className="group flex flex-col gap-3" key={board.id}>
                 <Link
                   className="grid aspect-[4/3] grid-cols-3 grid-rows-2 gap-1 overflow-hidden rounded-3xl shadow-sm transition-all duration-300 group-hover:shadow-xl"
-                  href={routes.detail}
+                  href={boardDetailHref(board.slug ?? board.id)}
                 >
                   <div className="col-span-2 row-span-2 overflow-hidden">
                     <AppImage

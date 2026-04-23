@@ -5,6 +5,7 @@ export type CollectionVisibility = "public" | "private";
 
 export type CollectionBoard = {
   id: string;
+  slug: string | null;
   title: string;
   itemCount: number;
   previewImages: string[];

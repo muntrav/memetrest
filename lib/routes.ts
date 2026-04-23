@@ -17,3 +17,11 @@ export function postDetailHref(postId?: string): RoutePath | Route {
 
   return `${routes.detail}?post=${encodeURIComponent(postId)}` as Route;
 }
+
+export function boardDetailHref(boardIdOrSlug?: string): RoutePath | Route {
+  if (!boardIdOrSlug) {
+    return routes.collections;
+  }
+
+  return `/collections/${encodeURIComponent(boardIdOrSlug)}` as Route;
+}

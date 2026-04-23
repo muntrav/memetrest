@@ -6,6 +6,7 @@ import { postsService } from "@/lib/posts/service";
 
 vi.mock("@/lib/boards/repository", () => ({
   boardsRepository: {
+    findBoardDetail: vi.fn(),
     saveBoardItem: vi.fn(),
     removeBoardItem: vi.fn()
   }
@@ -126,6 +127,15 @@ describe("boards service", () => {
     await expect(boardsService.savePostToBoard("viewer-1", "board-1", "post-1")).rejects.toMatchObject({
       status: 409,
       code: "BOARD_ITEM_EXISTS"
+    } satisfies Partial<ApiError>);
+  });
+
+  it("maps forbidden public board access to PRIVACY_RESTRICTED", async () => {
+    vi.mocked(boardsRepository.findBoardDetail).mockResolvedValue("forbidden");
+
+    await expect(boardsService.getBoardDetail("board-slug", "viewer-1")).rejects.toMatchObject({
+      status: 403,
+      code: "PRIVACY_RESTRICTED"
     } satisfies Partial<ApiError>);
   });
 

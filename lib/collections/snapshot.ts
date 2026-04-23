@@ -46,6 +46,7 @@ function selectBoards(boards: CollectionBoard[], filter: CollectionFilter): Coll
 function mapBoardToCollectionBoard(board: Board, previewImages: string[]): CollectionBoard {
   return {
     id: board.id,
+    slug: board.slug,
     title: board.name,
     itemCount: board.itemCount,
     previewImages: previewImages.length > 0 ? previewImages : fallbackPreviewImages,

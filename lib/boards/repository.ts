@@ -42,6 +42,27 @@ type BoardItemRow = {
   saved_at: Date;
 };
 
+type BoardDetailItemRow = {
+  post_id: string;
+  position: string | number;
+  saved_at: Date;
+  caption: string;
+  overlay_text_top: string | null;
+  overlay_text_bottom: string | null;
+  visibility: "public" | "private";
+  created_at: Date;
+  creator_user_id: string;
+  creator_username: string;
+  creator_display_name: string;
+  creator_avatar_url: string | null;
+  asset_url: string;
+  asset_width: number | null;
+  asset_height: number | null;
+  asset_mime_type: string;
+  tags: string[] | null;
+  save_count: string | number;
+};
+
 function numberFromPg(value: string | number): number {
   return typeof value === "number" ? value : Number(value);
 }
@@ -65,6 +86,39 @@ function mapBoard(row: BoardRow): Board {
     itemCount: numberFromPg(row.item_count),
     updatedAt: row.updated_at.toISOString(),
     owner: mapOwner(row)
+  };
+}
+
+function mapBoardItem(row: BoardDetailItemRow) {
+  return {
+    postId: row.post_id,
+    position: numberFromPg(row.position),
+    savedAt: row.saved_at.toISOString(),
+    post: {
+      id: row.post_id,
+      caption: row.caption,
+      overlayTextTop: row.overlay_text_top,
+      overlayTextBottom: row.overlay_text_bottom,
+      visibility: row.visibility,
+      createdAt: row.created_at.toISOString(),
+      creator: {
+        userId: row.creator_user_id,
+        username: row.creator_username,
+        displayName: row.creator_display_name,
+        avatarUrl: row.creator_avatar_url
+      },
+      asset: {
+        url: row.asset_url,
+        width: row.asset_width ?? 1,
+        height: row.asset_height ?? 1,
+        mimeType: row.asset_mime_type,
+        blurDataUrl: null
+      },
+      tags: row.tags ?? [],
+      metrics: {
+        saveCount: numberFromPg(row.save_count)
+      }
+    }
   };
 }
 
@@ -173,6 +227,82 @@ async function findBoardRowById(
   );
 
   return result.rows[0] ?? null;
+}
+
+async function listBoardItems(
+  boardId: string,
+  viewerUserId: string | undefined,
+  canEdit: boolean
+) {
+  const visibilityClause = canEdit
+    ? ""
+    : `
+        and po.visibility = 'public'
+        and (
+          author.visibility = 'public'
+          or (
+            viewer.viewer_user_id is not null
+            and exists (
+              select 1
+              from follows f
+              join profiles viewer_profile on viewer_profile.id = f.follower_profile_id
+              where viewer_profile.user_id = viewer.viewer_user_id
+                and f.followed_profile_id = author.id
+            )
+          )
+        )
+      `;
+
+  const result = await query<BoardDetailItemRow>(
+    `
+      select
+        po.id as post_id,
+        bi.sort_order as position,
+        bi.saved_at,
+        po.caption,
+        po.overlay_text_top,
+        po.overlay_text_bottom,
+        po.visibility,
+        po.created_at,
+        author.user_id as creator_user_id,
+        author.username::text as creator_username,
+        author.display_name as creator_display_name,
+        author.avatar_url as creator_avatar_url,
+        pa.public_url as asset_url,
+        pa.width as asset_width,
+        pa.height as asset_height,
+        pa.mime_type as asset_mime_type,
+        coalesce(tags.tags, '{}'::text[]) as tags,
+        coalesce(save_counts.save_count, 0) as save_count
+      from board_items bi
+      join boards b on b.id = bi.board_id
+      join posts po on po.id = bi.post_id
+      join profiles author on author.id = po.author_profile_id
+      left join post_assets pa on pa.id = po.primary_asset_id
+      left join lateral (
+        select array_agg(pt.tag::text order by pt.tag::text asc) as tags
+        from post_tags pt
+        where pt.post_id = po.id
+      ) tags on true
+      left join lateral (
+        select count(*) as save_count
+        from board_items saved_items
+        where saved_items.post_id = po.id
+      ) save_counts on true
+      cross join (
+        select $2::uuid as viewer_user_id
+      ) viewer
+      where b.id = $1
+        and po.status = 'published'
+        and po.moderation_status = 'visible'
+        and pa.id is not null
+        ${visibilityClause}
+      order by bi.sort_order asc, bi.saved_at desc, po.id asc
+    `,
+    [boardId, viewerUserId ?? null]
+  );
+
+  return result.rows.map(mapBoardItem);
 }
 
 function uniqueSlugError() {
@@ -537,9 +667,13 @@ export const boardsRepository = {
       return "forbidden";
     }
 
+    const items = await listBoardItems(row.id, viewerUserId, canEdit);
+    const board = mapBoard(row);
+
     return {
-      ...mapBoard(row),
-      items: [],
+      ...board,
+      itemCount: canEdit ? board.itemCount : items.length,
+      items,
       pageInfo: emptyPageInfo(),
       canEdit
     };

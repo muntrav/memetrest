@@ -21,6 +21,7 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - implemented custom email/password auth, password reset token persistence, app-owned sessions, and profile/privacy update services
 - added `/api/v1/auth/*` and `/api/v1/me*` route handlers aligned to the OpenAPI contract
 - added v1 board list/create/update/delete/reorder/detail routes and replaced the collections JSON store path with Postgres-backed board data
+- added board item save/remove routes, real board detail item queries, shareable board pages, and live save/remove UI wiring from meme detail and collections
 - added feed, search, and post-detail read routes with cursor pagination and privacy-aware visibility enforcement
 - aligned the schema with the v1 contract by adding post-level visibility to `posts`
 - wired the desktop and mobile home, discovery, and detail screens to the live browse services instead of curated placeholder cards
@@ -52,7 +53,6 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 ## Expected Deliverables From Next Backend Slice
 
 - content/media repositories and services for image upload intent and post creation
-- board item save/remove flows on top of the new board repositories and services
 - follow and follow-request services for private profile access
 - admin moderation and seed-content route handlers
 - email delivery adapter for password reset before production
@@ -65,7 +65,7 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - upload finalization must prevent orphaned temp assets and duplicate post creation
 - temp uploads currently remain in their `temp/` object path after promotion; lifecycle cleanup and final object moves are still open
 - admin moderation actions need auditable write paths from day one
-- browse UI is now live for home, discovery, and detail, but the interaction buttons on those surfaces still mostly point to future slices
+- browse UI is now live for home, discovery, detail, collections, and board pages, but likes/follows/download/share still point to future slices
 - password reset currently creates persisted reset tokens, but email delivery is not wired yet
 - database-backed integration tests need a test Postgres/Supabase connection
 - there is no observability or alerting yet around heartbeat failures, deployment failures, or API incidents

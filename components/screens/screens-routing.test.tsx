@@ -7,11 +7,12 @@ import { HomeFeedWebScreen } from "@/components/screens/home-feed-web-screen";
 import { MemeDetailViewScreen } from "@/components/screens/meme-detail-view-screen";
 import type { CollectionBoard, CollectionsSummary } from "@/lib/collections/types";
 import type { FeedCardViewModel, FeedLaneViewModel } from "@/lib/posts/presentation";
-import { postDetailHref, routes } from "@/lib/routes";
+import { boardDetailHref, postDetailHref, routes } from "@/lib/routes";
 
 const collectionBoards: CollectionBoard[] = [
   {
     id: "board-funny-reactions",
+    slug: "funny-reactions",
     title: "Funny Reactions",
     itemCount: 128,
     previewImages: [
@@ -79,6 +80,7 @@ const homeLanes: FeedLaneViewModel[] = [
 const detailPost = {
   ...homeCards[0],
   savedBoardCount: 2,
+  savedBoardIds: ["board-funny-reactions", "board-team-favorites"],
   followerCountLabel: "2,400"
 };
 
@@ -174,7 +176,11 @@ describe("screen routing", () => {
     expect(
       screen
         .getAllByAltText("Funny Reactions")
-        .some((element) => element.closest("a")?.getAttribute("href") === routes.detail)
+        .some(
+          (element) =>
+            element.closest("a")?.getAttribute("href") ===
+            boardDetailHref(collectionBoards[0].slug ?? collectionBoards[0].id)
+        )
     ).toBe(true);
   });
 
@@ -190,8 +196,8 @@ describe("screen routing", () => {
 
     expect(
       screen
-        .getAllByRole("link", { name: /save to board/i })
-        .some((element) => element.getAttribute("href") === routes.collections)
+        .getAllByRole("button", { name: /saved to 2 boards/i })
+        .some((element) => element.textContent?.includes("Saved to 2 boards"))
     ).toBe(true);
 
     expect(
