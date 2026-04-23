@@ -20,6 +20,7 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - added provider-neutral Postgres infrastructure and a migration runner
 - implemented custom email/password auth, password reset token persistence, app-owned sessions, and profile/privacy update services
 - added `/api/v1/auth/*` and `/api/v1/me*` route handlers aligned to the OpenAPI contract
+- added v1 board list/create/update/delete/reorder/detail routes and replaced the collections JSON store path with Postgres-backed board data
 - added focused backend tests for password hashing and auth input validation
 - connected the workspace to the live Supabase project and verified migrations and auth flows against it
 - added a GitHub Actions heartbeat workflow and deploy runbook for inactivity protection
@@ -45,7 +46,7 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 
 - content/media repositories and services for image upload intent and post creation
 - feed and search read services with privacy and moderation filtering
-- board repositories and services replacing the current file-backed collections behavior
+- board item save/remove flows on top of the new board repositories and services
 - follow and follow-request services for private profile access
 - admin moderation and seed-content route handlers
 - email delivery adapter for password reset before production

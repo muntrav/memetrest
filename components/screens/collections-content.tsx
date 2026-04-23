@@ -1,5 +1,5 @@
 import { CollectionsScreen } from "@/components/screens/collections-screen";
-import { listCachedBoards } from "@/lib/collections/cache";
+import { getCollectionsSnapshotForViewer } from "@/lib/collections/snapshot";
 import { normalizeCollectionFilter } from "@/lib/collections/types";
 
 type CollectionsContentProps = {
@@ -8,7 +8,7 @@ type CollectionsContentProps = {
 
 export async function CollectionsContent({ filterQuery }: CollectionsContentProps) {
   const filter = normalizeCollectionFilter(filterQuery);
-  const snapshot = await listCachedBoards(filter);
+  const snapshot = await getCollectionsSnapshotForViewer(filter);
 
   return (
     <CollectionsScreen

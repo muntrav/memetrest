@@ -30,17 +30,29 @@ export function CollectionsCreateBoardButton({
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("/api/collections", {
+      const response = await fetch("/api/v1/me/boards", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ title, visibility })
+        body: JSON.stringify({ name: title, visibility })
       });
 
       if (!response.ok) {
-        const payload = (await response.json().catch(() => null)) as { error?: string } | null;
-        setError(payload?.error ?? "Could not create board.");
+        const payload = (await response.json().catch(() => null)) as
+          | {
+              error?:
+                | string
+                | {
+                    message?: string;
+                  };
+            }
+          | null;
+        const apiError =
+          typeof payload?.error === "string"
+            ? payload.error
+            : payload?.error?.message;
+        setError(apiError ?? "Could not create board.");
         return;
       }
 

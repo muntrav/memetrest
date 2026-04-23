@@ -1,30 +1,33 @@
 import { revalidatePath, revalidateTag } from "next/cache";
-import { NextResponse } from "next/server";
-import {
-  collectionsRepository,
-  CollectionsValidationError
-} from "@/lib/collections/repository";
+import { NextResponse, type NextRequest } from "next/server";
+import { authService } from "@/lib/auth/service";
+import { boardsService } from "@/lib/boards/service";
+import { getCollectionsSnapshotForViewer } from "@/lib/collections/snapshot";
 import { normalizeCollectionFilter } from "@/lib/collections/types";
 import { routes } from "@/lib/routes";
+import { mapApiError } from "@/lib/shared/api-error";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const filter = normalizeCollectionFilter(searchParams.get("filter") ?? undefined);
-  const snapshot = await collectionsRepository.listBoards(filter);
-
-  return NextResponse.json(snapshot);
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const filter = normalizeCollectionFilter(searchParams.get("filter") ?? undefined);
+    const snapshot = await getCollectionsSnapshotForViewer(filter);
+    return NextResponse.json(snapshot);
+  } catch (error) {
+    return mapApiError(error);
+  }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
+    const authSession = await authService.getCurrentSession(request);
     const body = (await request.json()) as {
       title?: string;
       visibility?: "public" | "private";
     };
-
-    const board = await collectionsRepository.createBoard({
-      title: body.title ?? "",
-      visibility: body.visibility
+    const board = await boardsService.createBoard(authSession.user.id, {
+      name: body.title ?? "",
+      visibility: body.visibility ?? "public"
     });
 
     revalidateTag("collections");
@@ -32,10 +35,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ board }, { status: 201 });
   } catch (error) {
-    if (error instanceof CollectionsValidationError) {
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
-
-    return NextResponse.json({ error: "Failed to create board." }, { status: 500 });
+    return mapApiError(error);
   }
 }
