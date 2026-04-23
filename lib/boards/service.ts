@@ -1,7 +1,9 @@
 import { ApiError, validationError } from "@/lib/shared/api-error";
 import { boardsRepository } from "@/lib/boards/repository";
+import { postsService } from "@/lib/posts/service";
 import type {
   Board,
+  BoardItem,
   BoardDetail,
   CreateBoardInput,
   UpdateBoardInput
@@ -92,5 +94,56 @@ export const boardsService = {
     }
 
     return board;
+  },
+
+  async savePostToBoard(
+    userId: string,
+    boardId: string,
+    postId: string
+  ): Promise<BoardItem> {
+    const post = await postsService.getPostDetail(postId, userId);
+    const result = await boardsRepository.saveBoardItem(userId, boardId, postId);
+
+    if (result === "forbidden") {
+      throw new ApiError(403, "FORBIDDEN", "You do not own this board.");
+    }
+
+    if (result === "not_found") {
+      throw new ApiError(404, "NOT_FOUND", "Board not found.");
+    }
+
+    if (result === "exists") {
+      throw new ApiError(409, "BOARD_ITEM_EXISTS", "This post is already saved to the board.");
+    }
+
+    return {
+      postId: result.post_id,
+      position: result.position,
+      savedAt: result.saved_at.toISOString(),
+      post: {
+        id: post.id,
+        caption: post.caption,
+        overlayTextTop: post.overlayTextTop,
+        overlayTextBottom: post.overlayTextBottom,
+        visibility: post.visibility,
+        createdAt: post.createdAt,
+        creator: post.creator,
+        asset: post.asset,
+        tags: post.tags,
+        metrics: post.metrics
+      }
+    };
+  },
+
+  async removePostFromBoard(userId: string, boardId: string, postId: string): Promise<void> {
+    const result = await boardsRepository.removeBoardItem(userId, boardId, postId);
+
+    if (result === "forbidden") {
+      throw new ApiError(403, "FORBIDDEN", "You do not own this board.");
+    }
+
+    if (result === "not_found") {
+      throw new ApiError(404, "NOT_FOUND", "Board item not found.");
+    }
   }
 };

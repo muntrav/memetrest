@@ -170,3 +170,15 @@ export function parseBoardReorderInput(body: unknown): { boardIds: string[] } {
 
   return { boardIds: normalizedBoardIds };
 }
+
+export function parseSaveBoardItemInput(body: unknown): { postId: string } {
+  const record = asRecord(body);
+
+  if (typeof record.postId !== "string") {
+    throw validationError("postId is required.", { field: "postId" });
+  }
+
+  return {
+    postId: assertUuid(record.postId, "postId")
+  };
+}

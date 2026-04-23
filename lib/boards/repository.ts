@@ -36,6 +36,12 @@ type BoardPreviewRow = {
   preview_url: string;
 };
 
+type BoardItemRow = {
+  post_id: string;
+  position: number;
+  saved_at: Date;
+};
+
 function numberFromPg(value: string | number): number {
   return typeof value === "number" ? value : Number(value);
 }
@@ -420,6 +426,87 @@ export const boardsRepository = {
       `,
       [boardId]
     );
+
+    return "deleted";
+  },
+
+  async saveBoardItem(
+    userId: string,
+    boardId: string,
+    postId: string
+  ): Promise<BoardItemRow | "forbidden" | "not_found" | "exists"> {
+    const boardOwner = await findBoardOwner(boardId);
+
+    if (!boardOwner) {
+      return "not_found";
+    }
+
+    if (boardOwner.owner_user_id !== userId) {
+      return "forbidden";
+    }
+
+    try {
+      const result = await query<BoardItemRow>(
+        `
+          insert into board_items (board_id, post_id, sort_order)
+          values (
+            $1,
+            $2,
+            coalesce(
+              (
+                select max(sort_order) + 1
+                from board_items
+                where board_id = $1
+              ),
+              0
+            )
+          )
+          returning
+            post_id,
+            sort_order as position,
+            saved_at
+        `,
+        [boardId, postId]
+      );
+
+      return result.rows[0] ?? "not_found";
+    } catch (error) {
+      if (isUniqueViolation(error)) {
+        return "exists";
+      }
+
+      throw error;
+    }
+  },
+
+  async removeBoardItem(
+    userId: string,
+    boardId: string,
+    postId: string
+  ): Promise<"deleted" | "forbidden" | "not_found"> {
+    const boardOwner = await findBoardOwner(boardId);
+
+    if (!boardOwner) {
+      return "not_found";
+    }
+
+    if (boardOwner.owner_user_id !== userId) {
+      return "forbidden";
+    }
+
+    const result = await query<{ post_id: string }>(
+      `
+        delete from board_items
+        where board_id = $1
+          and post_id = $2
+        returning post_id
+      `,
+      [boardId, postId]
+    );
+
+    if (!result.rows[0]) {
+      return "not_found";
+    }
 
     return "deleted";
   },
