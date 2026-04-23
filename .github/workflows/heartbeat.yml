@@ -1,0 +1,32 @@
+name: Project Heartbeat
+
+on:
+  schedule:
+    - cron: "17 */12 * * *"
+  workflow_dispatch:
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Validate scheduler secrets
+        env:
+          HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
+          HEARTBEAT_TOKEN: ${{ secrets.HEARTBEAT_TOKEN }}
+        run: |
+          test -n "$HEARTBEAT_URL"
+          test -n "$HEARTBEAT_TOKEN"
+
+      - name: Send heartbeat
+        env:
+          HEARTBEAT_URL: ${{ secrets.HEARTBEAT_URL }}
+          HEARTBEAT_TOKEN: ${{ secrets.HEARTBEAT_TOKEN }}
+        run: |
+          curl --fail-with-body \
+            --request POST \
+            --url "$HEARTBEAT_URL" \
+            --header "Authorization: Bearer $HEARTBEAT_TOKEN" \
+            --header "Content-Type: application/json" \
+            --data '{"source":"github-actions","status":"ok","notes":"Scheduled keepalive ping"}'

@@ -2,3 +2,7 @@
 node_modules
 npm-debug.log*
 next-dev*.log
+next-*.log
+tsconfig.tsbuildinfo
+.env
+.env*.local

@@ -1,0 +1,1562 @@
+openapi: 3.1.0
+info:
+  title: Memetrest API
+  version: 1.0.0
+  description: Versioned v1 application contracts for Memetrest.
+servers:
+  - url: http://localhost:3000
+    description: Local app routes
+tags:
+  - name: Auth
+  - name: Profile
+  - name: Upload
+  - name: Post
+  - name: Feed
+  - name: Search
+  - name: Follow
+  - name: Board
+  - name: Admin
+paths:
+  /api/v1/auth/signup:
+    post:
+      tags: [Auth]
+      summary: Create account and session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignupRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthSessionResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/auth/login:
+    post:
+      tags: [Auth]
+      summary: Log in
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthSessionResponse'
+        '401':
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Account not allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/auth/logout:
+    post:
+      tags: [Auth]
+      summary: Log out current session
+      security:
+        - sessionAuth: []
+      responses:
+        '204':
+          description: Logged out
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/auth/password-reset/request:
+    post:
+      tags: [Auth]
+      summary: Request password reset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        '202':
+          description: Accepted
+  /api/v1/auth/password-reset/confirm:
+    post:
+      tags: [Auth]
+      summary: Confirm password reset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token, newPassword]
+              properties:
+                token:
+                  type: string
+                newPassword:
+                  type: string
+                  minLength: 8
+      responses:
+        '204':
+          description: Password updated
+        '400':
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/me:
+    get:
+      tags: [Profile]
+      summary: Get current user and profile
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Current session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthSessionResponse'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/me/profile:
+    patch:
+      tags: [Profile]
+      summary: Update own profile
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileRequest'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [profile]
+                properties:
+                  profile:
+                    $ref: '#/components/schemas/Profile'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Username conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/me/privacy:
+    patch:
+      tags: [Profile]
+      summary: Update own privacy
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [visibility]
+              properties:
+                visibility:
+                  type: string
+                  enum: [public, private]
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [profile]
+                properties:
+                  profile:
+                    $ref: '#/components/schemas/Profile'
+  /api/v1/profiles/{username}:
+    get:
+      tags: [Profile]
+      summary: Get profile by username
+      parameters:
+        - $ref: '#/components/parameters/UsernamePath'
+      responses:
+        '200':
+          description: Profile
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [profile]
+                properties:
+                  profile:
+                    $ref: '#/components/schemas/ProfileDetail'
+        '403':
+          description: Private resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/uploads/images:
+    post:
+      tags: [Upload]
+      summary: Create image upload intent
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageUploadIntentRequest'
+      responses:
+        '201':
+          description: Upload intent created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageUploadIntentResponse'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '413':
+          description: File too large
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '415':
+          description: Unsupported media type
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/posts:
+    post:
+      tags: [Post]
+      summary: Create post
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePostRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [post]
+                properties:
+                  post:
+                    $ref: '#/components/schemas/PostDetail'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/posts/{postId}:
+    get:
+      tags: [Post]
+      summary: Get post by id
+      parameters:
+        - $ref: '#/components/parameters/PostIdPath'
+      responses:
+        '200':
+          description: Post detail
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [post]
+                properties:
+                  post:
+                    $ref: '#/components/schemas/PostDetail'
+        '403':
+          description: Inaccessible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/feed:
+    get:
+      tags: [Feed]
+      summary: Get feed page
+      parameters:
+        - in: query
+          name: mode
+          schema:
+            type: string
+            enum: [for_you, following, latest, trending]
+            default: for_you
+        - $ref: '#/components/parameters/CursorQuery'
+        - $ref: '#/components/parameters/LimitQuery'
+      responses:
+        '200':
+          description: Feed results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostPageResponse'
+        '401':
+          description: Following mode requires auth
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/search:
+    get:
+      tags: [Search]
+      summary: Search memes, creators, or tags
+      parameters:
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+            minLength: 1
+        - in: query
+          name: tab
+          schema:
+            type: string
+            enum: [memes, creators, tags]
+            default: memes
+        - $ref: '#/components/parameters/CursorQuery'
+        - $ref: '#/components/parameters/LimitQuery'
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/SearchMemesResponse'
+                  - $ref: '#/components/schemas/SearchCreatorsResponse'
+                  - $ref: '#/components/schemas/SearchTagsResponse'
+        '422':
+          description: Validation failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/profiles/{username}/follow:
+    post:
+      tags: [Follow]
+      summary: Follow profile or create follow request
+      security:
+        - sessionAuth: []
+      parameters:
+        - $ref: '#/components/parameters/UsernamePath'
+      responses:
+        '200':
+          description: Follow result
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [result]
+                properties:
+                  result:
+                    type: string
+                    enum: [followed, requested]
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Already following or requested
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags: [Follow]
+      summary: Unfollow profile or cancel follow request
+      security:
+        - sessionAuth: []
+      parameters:
+        - $ref: '#/components/parameters/UsernamePath'
+      responses:
+        '204':
+          description: Relationship removed
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Relationship not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/me/follow-requests:
+    get:
+      tags: [Follow]
+      summary: List incoming follow requests
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Pending requests
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/FollowRequest'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/me/follow-requests/{requestId}:
+    patch:
+      tags: [Follow]
+      summary: Approve or reject follow request
+      security:
+        - sessionAuth: []
+      parameters:
+        - $ref: '#/components/parameters/RequestIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [decision]
+              properties:
+                decision:
+                  type: string
+                  enum: [approve, reject]
+      responses:
+        '200':
+          description: Request resolved
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [request]
+                properties:
+                  request:
+                    $ref: '#/components/schemas/FollowRequest'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Request not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/me/boards:
+    get:
+      tags: [Board]
+      summary: List own boards
+      security:
+        - sessionAuth: []
+      responses:
+        '200':
+          description: Boards
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Board'
+    post:
+      tags: [Board]
+      summary: Create board
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBoardRequest'
+      responses:
+        '201':
+          description: Board created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [board]
+                properties:
+                  board:
+                    $ref: '#/components/schemas/BoardDetail'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation failure
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/me/boards/reorder:
+    patch:
+      tags: [Board]
+      summary: Reorder own boards
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [boardIds]
+              properties:
+                boardIds:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+      responses:
+        '204':
+          description: Reordered
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Invalid payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/me/boards/{boardId}:
+    patch:
+      tags: [Board]
+      summary: Update own board
+      security:
+        - sessionAuth: []
+      parameters:
+        - $ref: '#/components/parameters/BoardIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBoardRequest'
+      responses:
+        '200':
+          description: Board updated
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [board]
+                properties:
+                  board:
+                    $ref: '#/components/schemas/BoardDetail'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Not owner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags: [Board]
+      summary: Delete own board
+      security:
+        - sessionAuth: []
+      parameters:
+        - $ref: '#/components/parameters/BoardIdPath'
+      responses:
+        '204':
+          description: Deleted
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Not owner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/me/boards/{boardId}/items:
+    post:
+      tags: [Board]
+      summary: Save post to board
+      security:
+        - sessionAuth: []
+      parameters:
+        - $ref: '#/components/parameters/BoardIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [postId]
+              properties:
+                postId:
+                  type: string
+                  format: uuid
+      responses:
+        '201':
+          description: Saved
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [item]
+                properties:
+                  item:
+                    $ref: '#/components/schemas/BoardItem'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Not owner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Already saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/me/boards/{boardId}/items/{postId}:
+    delete:
+      tags: [Board]
+      summary: Remove post from board
+      security:
+        - sessionAuth: []
+      parameters:
+        - $ref: '#/components/parameters/BoardIdPath'
+        - $ref: '#/components/parameters/PostIdPath'
+      responses:
+        '204':
+          description: Removed
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Not owner
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/boards/{boardIdOrSlug}:
+    get:
+      tags: [Board]
+      summary: Get public or authorized board
+      parameters:
+        - in: path
+          name: boardIdOrSlug
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Board detail
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [board]
+                properties:
+                  board:
+                    $ref: '#/components/schemas/BoardDetail'
+        '403':
+          description: Private resource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/admin/posts/{postId}/remove:
+    post:
+      tags: [Admin]
+      summary: Remove post
+      security:
+        - sessionAuth: []
+      parameters:
+        - $ref: '#/components/parameters/PostIdPath'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: Post removed
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [post]
+                properties:
+                  post:
+                    $ref: '#/components/schemas/PostDetail'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Not admin
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/admin/users/{userId}/ban:
+    post:
+      tags: [Admin]
+      summary: Ban user
+      security:
+        - sessionAuth: []
+      parameters:
+        - $ref: '#/components/parameters/UserIdPath'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: User banned
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [user]
+                properties:
+                  user:
+                    $ref: '#/components/schemas/AdminUser'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Not admin
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/admin/posts/{postId}/feature:
+    post:
+      tags: [Admin]
+      summary: Feature post
+      security:
+        - sessionAuth: []
+      parameters:
+        - $ref: '#/components/parameters/PostIdPath'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [placement]
+              properties:
+                placement:
+                  type: string
+                  enum: [for_you, trending, discovery, search_boost]
+                rank:
+                  type: integer
+                startsAt:
+                  type: string
+                  format: date-time
+                endsAt:
+                  type: string
+                  format: date-time
+      responses:
+        '201':
+          description: Feature entry created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [entry]
+                properties:
+                  entry:
+                    $ref: '#/components/schemas/FeaturedContent'
+  /api/v1/admin/seed-imports:
+    post:
+      tags: [Admin]
+      summary: Create seed import job
+      security:
+        - sessionAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [sourceType]
+              properties:
+                sourceType:
+                  type: string
+                  enum: [manual_upload, script_import]
+                notes:
+                  type: string
+      responses:
+        '201':
+          description: Job created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [job]
+                properties:
+                  job:
+                    $ref: '#/components/schemas/SeedImportJob'
+components:
+  securitySchemes:
+    sessionAuth:
+      type: apiKey
+      in: cookie
+      name: memetrest_session
+  parameters:
+    UsernamePath:
+      in: path
+      name: username
+      required: true
+      schema:
+        type: string
+        pattern: '^[a-z0-9_]{3,30}$'
+    PostIdPath:
+      in: path
+      name: postId
+      required: true
+      schema:
+        type: string
+        format: uuid
+    BoardIdPath:
+      in: path
+      name: boardId
+      required: true
+      schema:
+        type: string
+        format: uuid
+    UserIdPath:
+      in: path
+      name: userId
+      required: true
+      schema:
+        type: string
+        format: uuid
+    RequestIdPath:
+      in: path
+      name: requestId
+      required: true
+      schema:
+        type: string
+        format: uuid
+    CursorQuery:
+      in: query
+      name: cursor
+      required: false
+      schema:
+        type: string
+    LimitQuery:
+      in: query
+      name: limit
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 50
+        default: 20
+  schemas:
+    SignupRequest:
+      type: object
+      required: [email, password, username]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+          maxLength: 128
+        username:
+          type: string
+          pattern: '^[a-z0-9_]{3,30}$'
+        displayName:
+          type: string
+          minLength: 1
+          maxLength: 40
+    LoginRequest:
+      type: object
+      required: [email, password]
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+          maxLength: 128
+    UpdateProfileRequest:
+      type: object
+      properties:
+        username:
+          type: string
+          pattern: '^[a-z0-9_]{3,30}$'
+        displayName:
+          type: string
+          minLength: 1
+          maxLength: 40
+        bio:
+          type: string
+          maxLength: 160
+        avatarUrl:
+          type: string
+          format: uri
+      additionalProperties: false
+    ImageUploadIntentRequest:
+      type: object
+      required: [filename, contentType, sizeBytes]
+      properties:
+        filename:
+          type: string
+          maxLength: 255
+        contentType:
+          type: string
+          enum: [image/jpeg, image/png, image/webp]
+        sizeBytes:
+          type: integer
+          minimum: 1
+          maximum: 10485760
+        checksumSha256:
+          type: string
+    ImageUploadIntentResponse:
+      type: object
+      required: [upload, asset]
+      properties:
+        upload:
+          type: object
+          required: [method, url, headers, expiresAt]
+          properties:
+            method:
+              type: string
+              enum: [PUT]
+            url:
+              type: string
+              format: uri
+            headers:
+              type: object
+              additionalProperties:
+                type: string
+            expiresAt:
+              type: string
+              format: date-time
+        asset:
+          type: object
+          required: [tempAssetKey]
+          properties:
+            tempAssetKey:
+              type: string
+    CreatePostRequest:
+      type: object
+      required: [caption, asset]
+      properties:
+        caption:
+          type: string
+          minLength: 1
+          maxLength: 280
+        overlayTextTop:
+          type: string
+          maxLength: 120
+        overlayTextBottom:
+          type: string
+          maxLength: 120
+        tags:
+          type: array
+          maxItems: 10
+          items:
+            type: string
+            pattern: '^[a-z0-9-]{1,32}$'
+        visibility:
+          type: string
+          enum: [public, private]
+          default: public
+        asset:
+          type: object
+          required: [tempAssetKey]
+          properties:
+            tempAssetKey:
+              type: string
+    CreateBoardRequest:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 60
+        description:
+          type: string
+          maxLength: 160
+        visibility:
+          type: string
+          enum: [public, private]
+          default: private
+    UpdateBoardRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 60
+        description:
+          type: string
+          maxLength: 160
+        visibility:
+          type: string
+          enum: [public, private]
+        slug:
+          type: string
+          pattern: '^[a-z0-9-]{3,64}$'
+      additionalProperties: false
+    AuthSessionResponse:
+      type: object
+      required: [user, profile, session]
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        profile:
+          $ref: '#/components/schemas/Profile'
+        session:
+          $ref: '#/components/schemas/Session'
+    User:
+      type: object
+      required: [id, email, role, status, createdAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        role:
+          type: string
+          enum: [user, admin]
+        status:
+          type: string
+          enum: [active, banned]
+        createdAt:
+          type: string
+          format: date-time
+    Session:
+      type: object
+      required: [id, expiresAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        expiresAt:
+          type: string
+          format: date-time
+    Profile:
+      type: object
+      required:
+        [userId, username, displayName, visibility, avatarUrl, followerCount, followingCount, postCount]
+      properties:
+        userId:
+          type: string
+          format: uuid
+        username:
+          type: string
+        displayName:
+          type: string
+        bio:
+          type: string
+          nullable: true
+        avatarUrl:
+          type: string
+          format: uri
+          nullable: true
+        visibility:
+          type: string
+          enum: [public, private]
+        followerCount:
+          type: integer
+          minimum: 0
+        followingCount:
+          type: integer
+          minimum: 0
+        postCount:
+          type: integer
+          minimum: 0
+    ProfileDetail:
+      allOf:
+        - $ref: '#/components/schemas/Profile'
+        - type: object
+          required: [relationship, boards, recentPosts]
+          properties:
+            relationship:
+              type: object
+              required: [viewerState]
+              properties:
+                viewerState:
+                  type: string
+                  enum: [self, following, requested, not_following, blocked]
+            boards:
+              type: array
+              items:
+                $ref: '#/components/schemas/Board'
+            recentPosts:
+              type: array
+              items:
+                $ref: '#/components/schemas/PostSummary'
+    PostSummary:
+      type: object
+      required: [id, caption, visibility, createdAt, creator, asset]
+      properties:
+        id:
+          type: string
+          format: uuid
+        caption:
+          type: string
+        overlayTextTop:
+          type: string
+          nullable: true
+        overlayTextBottom:
+          type: string
+          nullable: true
+        visibility:
+          type: string
+          enum: [public, private]
+        createdAt:
+          type: string
+          format: date-time
+        creator:
+          $ref: '#/components/schemas/PublicCreator'
+        asset:
+          $ref: '#/components/schemas/PostAsset'
+        tags:
+          type: array
+          items:
+            type: string
+        metrics:
+          $ref: '#/components/schemas/PostMetrics'
+    PostDetail:
+      allOf:
+        - $ref: '#/components/schemas/PostSummary'
+        - type: object
+          required: [boardSaveState, moderation]
+          properties:
+            boardSaveState:
+              type: object
+              required: [savedBoardIds]
+              properties:
+                savedBoardIds:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+            moderation:
+              type: object
+              required: [status]
+              properties:
+                status:
+                  type: string
+                  enum: [active, removed]
+                reason:
+                  type: string
+                  nullable: true
+    PostAsset:
+      type: object
+      required: [url, width, height, mimeType]
+      properties:
+        url:
+          type: string
+          format: uri
+        width:
+          type: integer
+          minimum: 1
+        height:
+          type: integer
+          minimum: 1
+        mimeType:
+          type: string
+        blurDataUrl:
+          type: string
+          nullable: true
+    PublicCreator:
+      type: object
+      required: [userId, username, displayName]
+      properties:
+        userId:
+          type: string
+          format: uuid
+        username:
+          type: string
+        displayName:
+          type: string
+        avatarUrl:
+          type: string
+          format: uri
+          nullable: true
+    PostMetrics:
+      type: object
+      required: [saveCount]
+      properties:
+        saveCount:
+          type: integer
+          minimum: 0
+    PostPageResponse:
+      type: object
+      required: [items, pageInfo]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostSummary'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    SearchMemesResponse:
+      type: object
+      required: [tab, items, pageInfo]
+      properties:
+        tab:
+          type: string
+          enum: [memes]
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostSummary'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    SearchCreatorsResponse:
+      type: object
+      required: [tab, items, pageInfo]
+      properties:
+        tab:
+          type: string
+          enum: [creators]
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PublicCreator'
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    SearchTagsResponse:
+      type: object
+      required: [tab, items, pageInfo]
+      properties:
+        tab:
+          type: string
+          enum: [tags]
+        items:
+          type: array
+          items:
+            type: object
+            required: [tag, postCount]
+            properties:
+              tag:
+                type: string
+              postCount:
+                type: integer
+                minimum: 0
+        pageInfo:
+          $ref: '#/components/schemas/PageInfo'
+    FollowRequest:
+      type: object
+      required: [id, requester, status, createdAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        requester:
+          $ref: '#/components/schemas/PublicCreator'
+        status:
+          type: string
+          enum: [pending, approved, rejected, canceled]
+        createdAt:
+          type: string
+          format: date-time
+    Board:
+      type: object
+      required: [id, name, visibility, itemCount, owner]
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        slug:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        visibility:
+          type: string
+          enum: [public, private]
+        itemCount:
+          type: integer
+          minimum: 0
+        owner:
+          $ref: '#/components/schemas/PublicCreator'
+    BoardDetail:
+      allOf:
+        - $ref: '#/components/schemas/Board'
+        - type: object
+          required: [items, pageInfo, canEdit]
+          properties:
+            items:
+              type: array
+              items:
+                $ref: '#/components/schemas/BoardItem'
+            pageInfo:
+              $ref: '#/components/schemas/PageInfo'
+            canEdit:
+              type: boolean
+    BoardItem:
+      type: object
+      required: [postId, position, savedAt, post]
+      properties:
+        postId:
+          type: string
+          format: uuid
+        position:
+          type: integer
+          minimum: 0
+        savedAt:
+          type: string
+          format: date-time
+        post:
+          $ref: '#/components/schemas/PostSummary'
+    AdminUser:
+      allOf:
+        - $ref: '#/components/schemas/User'
+        - type: object
+          required: [ban]
+          properties:
+            ban:
+              type: object
+              required: [isBanned]
+              properties:
+                isBanned:
+                  type: boolean
+                reason:
+                  type: string
+                  nullable: true
+    FeaturedContent:
+      type: object
+      required: [id, placement, rank, postId, startsAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        placement:
+          type: string
+          enum: [for_you, trending, discovery, search_boost]
+        rank:
+          type: integer
+        postId:
+          type: string
+          format: uuid
+        startsAt:
+          type: string
+          format: date-time
+        endsAt:
+          type: string
+          format: date-time
+          nullable: true
+    SeedImportJob:
+      type: object
+      required: [id, sourceType, status, createdAt]
+      properties:
+        id:
+          type: string
+          format: uuid
+        sourceType:
+          type: string
+          enum: [manual_upload, script_import]
+        status:
+          type: string
+          enum: [pending, processing, completed, failed]
+        notes:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+    PageInfo:
+      type: object
+      required: [hasNextPage]
+      properties:
+        nextCursor:
+          type: string
+          nullable: true
+        hasNextPage:
+          type: boolean
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              enum:
+                - AUTH_REQUIRED
+                - INVALID_CREDENTIALS
+                - ACCOUNT_BANNED
+                - VALIDATION_ERROR
+                - USERNAME_TAKEN
+                - NOT_FOUND
+                - PRIVACY_RESTRICTED
+                - FOLLOW_REQUEST_PENDING
+                - BOARD_ITEM_EXISTS
+                - FILE_TOO_LARGE
+                - UNSUPPORTED_MEDIA_TYPE
+                - FORBIDDEN
+                - INVALID_TOKEN
+                - RATE_LIMITED
+                - INTERNAL_SERVER_ERROR
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
