@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { BoardDetailScreen } from "@/components/screens/board-detail-screen";
 import { getOptionalServerSession } from "@/lib/auth/server-session";
+import { toViewerSummary } from "@/lib/auth/viewer";
 import { boardsService } from "@/lib/boards/service";
 import { ApiError } from "@/lib/shared/api-error";
 
@@ -41,6 +42,7 @@ export default async function BoardDetailPage({ params }: BoardDetailPageProps) 
       board={board}
       statusDescription={statusDescription}
       statusTitle={statusTitle}
+      viewer={toViewerSummary(authSession)}
     />
   );
 }

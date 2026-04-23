@@ -5,6 +5,7 @@ import { DesktopPageShell } from "@/components/navigation/desktop-page-shell";
 import { MobileBottomNav } from "@/components/navigation/mobile-bottom-nav";
 import { AppImage } from "@/components/ui/app-image";
 import { MaterialIcon } from "@/components/ui/material-icon";
+import type { ViewerSummary } from "@/lib/auth/viewer";
 import type { FeedCardViewModel } from "@/lib/posts/presentation";
 import { routes } from "@/lib/routes";
 import { SaveToBoardButton } from "@/components/screens/save-to-board-button";
@@ -20,6 +21,7 @@ type MemeDetailViewScreenProps = {
   relatedItems: FeedCardViewModel[];
   statusTitle: string | null;
   statusDescription: string | null;
+  viewer?: ViewerSummary | null;
 };
 
 function DetailStatus({
@@ -50,7 +52,8 @@ export function MemeDetailViewScreen({
   post,
   relatedItems,
   statusTitle,
-  statusDescription
+  statusDescription,
+  viewer = null
 }: MemeDetailViewScreenProps) {
   const resolvedTitle = post?.headline ?? "Meme Detail";
   const resolvedStatusTitle = statusTitle ?? (post ? null : "No meme selected yet");
@@ -66,6 +69,7 @@ export function MemeDetailViewScreen({
         active="explore"
         description="Desktop detail view prioritizes the meme canvas and creator metadata side by side, instead of reusing the stacked mobile composition."
         title={resolvedTitle}
+        viewer={viewer}
         toolbar={
           <>
             <BackButton
@@ -215,6 +219,7 @@ export function MemeDetailViewScreen({
                   <SaveToBoardButton
                     buttonClassName="flex items-center justify-center gap-xs rounded-xl bg-secondary py-md font-label-sm text-on-secondary shadow-md"
                     initialSavedBoardIds={post.savedBoardIds}
+                    nextPath={post.href}
                     postId={post.id}
                   />
                   <button
@@ -367,6 +372,7 @@ export function MemeDetailViewScreen({
                 <SaveToBoardButton
                   buttonClassName="flex items-center justify-center gap-xs rounded-xl bg-secondary py-md font-label-sm text-on-secondary shadow-md transition-all active:scale-95"
                   initialSavedBoardIds={post.savedBoardIds}
+                  nextPath={post.href}
                   postId={post.id}
                 />
                 <button

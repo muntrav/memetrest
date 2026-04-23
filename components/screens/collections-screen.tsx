@@ -1,15 +1,18 @@
 import React from "react";
 import Link from "next/link";
 import { DesktopPageShell } from "@/components/navigation/desktop-page-shell";
+import { AuthRequiredState } from "@/components/auth/auth-required-state";
 import { MobileBottomNav } from "@/components/navigation/mobile-bottom-nav";
 import { CollectionsCreateBoardButton } from "@/components/screens/collections-create-board-button";
 import { AppImage } from "@/components/ui/app-image";
 import { MaterialIcon } from "@/components/ui/material-icon";
+import type { ViewerSummary } from "@/lib/auth/viewer";
 import type {
   CollectionBoard,
   CollectionFilter,
   CollectionsSummary
 } from "@/lib/collections/types";
+import { buildAuthHref } from "@/lib/auth/navigation";
 import { boardDetailHref, routes, type RoutePath } from "@/lib/routes";
 
 const filters = [
@@ -23,6 +26,7 @@ type CollectionsScreenProps = {
   boards: CollectionBoard[];
   filter: CollectionFilter;
   summary: CollectionsSummary;
+  viewer?: ViewerSummary | null;
 };
 
 function getFilterHref(filterKey: CollectionFilter): {
@@ -52,17 +56,20 @@ function formatBoardCount(itemCount: number) {
 export function CollectionsScreen({
   boards,
   filter,
-  summary
+  summary,
+  viewer = null
 }: CollectionsScreenProps) {
-  const emptyStateTitle =
-    filter === "private"
+  const emptyStateTitle = !viewer
+    ? "Sign in to use collections"
+    : filter === "private"
       ? "No private boards yet"
       : filter === "organized"
         ? "No organized boards yet"
         : "No boards found";
 
-  const emptyStateDescription =
-    filter === "private"
+  const emptyStateDescription = !viewer
+    ? "Your boards and saved memes are tied to your account session."
+    : filter === "private"
       ? "Create a private board to keep your saved memes out of the public grid."
       : filter === "organized"
         ? "Boards with tags show up here. Start by creating a new board and organizing it later."
@@ -74,19 +81,38 @@ export function CollectionsScreen({
         active="collections"
         description="Desktop collections focus on board management and visibility; mobile keeps the compact save-and-browse flow."
         title="Collections"
+        viewer={viewer}
         toolbar={
-          <>
-            <button
-              className="rounded-full border border-outline-variant/40 bg-white px-5 py-3 font-label-sm text-on-surface transition-colors hover:bg-surface-container"
-              type="button"
-            >
-              Import board
-            </button>
-            <CollectionsCreateBoardButton
-              buttonClassName="flex items-center gap-2 rounded-full bg-primary px-5 py-3 font-label-sm text-on-primary shadow-lg shadow-primary/20"
-              buttonLabel="New board"
-            />
-          </>
+          viewer ? (
+            <>
+              <button
+                className="rounded-full border border-outline-variant/40 bg-white px-5 py-3 font-label-sm text-on-surface transition-colors hover:bg-surface-container"
+                type="button"
+              >
+                Import board
+              </button>
+              <CollectionsCreateBoardButton
+                buttonClassName="flex items-center gap-2 rounded-full bg-primary px-5 py-3 font-label-sm text-on-primary shadow-lg shadow-primary/20"
+                buttonLabel="New board"
+              />
+            </>
+          ) : (
+            <>
+              <Link
+                className="rounded-full border border-outline-variant/40 bg-white px-5 py-3 font-label-sm text-on-surface transition-colors hover:bg-surface-container"
+                href={buildAuthHref(routes.login, routes.collections)}
+              >
+                Sign in
+              </Link>
+              <Link
+                className="flex items-center gap-2 rounded-full bg-primary px-5 py-3 font-label-sm text-on-primary shadow-lg shadow-primary/20"
+                href={buildAuthHref(routes.signup, routes.collections)}
+              >
+                <MaterialIcon>person_add</MaterialIcon>
+                Create account
+              </Link>
+            </>
+          )
         }
       >
         <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
@@ -183,12 +209,20 @@ export function CollectionsScreen({
                 ))}
               </div>
             ) : (
-              <div className="rounded-[24px] border border-dashed border-outline-variant/40 bg-background/60 px-6 py-12 text-center">
-                <p className="text-lg font-bold text-on-surface">{emptyStateTitle}</p>
-                <p className="mx-auto mt-2 max-w-md text-sm text-on-surface-variant">
-                  {emptyStateDescription}
-                </p>
-              </div>
+              viewer ? (
+                <div className="rounded-[24px] border border-dashed border-outline-variant/40 bg-background/60 px-6 py-12 text-center">
+                  <p className="text-lg font-bold text-on-surface">{emptyStateTitle}</p>
+                  <p className="mx-auto mt-2 max-w-md text-sm text-on-surface-variant">
+                    {emptyStateDescription}
+                  </p>
+                </div>
+              ) : (
+                <AuthRequiredState
+                  description={emptyStateDescription}
+                  nextPath={routes.collections}
+                  title={emptyStateTitle}
+                />
+              )
             )}
           </section>
 
@@ -270,11 +304,20 @@ export function CollectionsScreen({
               {summary.boardCount} boards &bull; {summary.totalItemCount} saved memes
             </p>
           </div>
-          <CollectionsCreateBoardButton
-            buttonClassName="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-on-primary shadow-lg shadow-primary/20 transition-transform hover:scale-105"
-            buttonLabel="Create board"
-            iconOnly
-          />
+          {viewer ? (
+            <CollectionsCreateBoardButton
+              buttonClassName="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-on-primary shadow-lg shadow-primary/20 transition-transform hover:scale-105"
+              buttonLabel="Create board"
+              iconOnly
+            />
+          ) : (
+            <Link
+              className="rounded-full border border-outline-variant/40 bg-white px-4 py-3 text-sm font-semibold text-on-surface"
+              href={buildAuthHref(routes.login, routes.collections)}
+            >
+              Sign in
+            </Link>
+          )}
         </div>
 
         <div className="mb-4 flex gap-2 overflow-x-auto pb-4 no-scrollbar">
@@ -349,28 +392,38 @@ export function CollectionsScreen({
             ))}
           </div>
         ) : (
-          <div className="rounded-[24px] border border-dashed border-outline-variant/40 bg-background/60 px-6 py-12 text-center">
-            <p className="text-lg font-bold text-on-surface">{emptyStateTitle}</p>
-            <p className="mx-auto mt-2 max-w-md text-sm text-on-surface-variant">
-              {emptyStateDescription}
-            </p>
-          </div>
+          viewer ? (
+            <div className="rounded-[24px] border border-dashed border-outline-variant/40 bg-background/60 px-6 py-12 text-center">
+              <p className="text-lg font-bold text-on-surface">{emptyStateTitle}</p>
+              <p className="mx-auto mt-2 max-w-md text-sm text-on-surface-variant">
+                {emptyStateDescription}
+              </p>
+            </div>
+          ) : (
+            <AuthRequiredState
+              description={emptyStateDescription}
+              nextPath={routes.collections}
+              title={emptyStateTitle}
+            />
+          )
         )}
 
-        <div className="glass-card fixed bottom-24 left-1/2 flex -translate-x-1/2 items-center gap-4 rounded-full border border-white/40 px-6 py-3 shadow-2xl">
-          <span className="font-label-sm text-primary">Edit Mode</span>
-          <div className="h-4 w-px bg-outline/20" />
-          <div className="flex gap-4">
-            <button className="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary" type="button">
-              <MaterialIcon className="text-[20px]">reorder</MaterialIcon>
-              <span className="text-[12px] font-semibold">Reorder</span>
-            </button>
-            <button className="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary" type="button">
-              <MaterialIcon className="text-[20px]">drive_file_rename_outline</MaterialIcon>
-              <span className="text-[12px] font-semibold">Rename</span>
-            </button>
+        {viewer ? (
+          <div className="glass-card fixed bottom-24 left-1/2 flex -translate-x-1/2 items-center gap-4 rounded-full border border-white/40 px-6 py-3 shadow-2xl">
+            <span className="font-label-sm text-primary">Edit Mode</span>
+            <div className="h-4 w-px bg-outline/20" />
+            <div className="flex gap-4">
+              <button className="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary" type="button">
+                <MaterialIcon className="text-[20px]">reorder</MaterialIcon>
+                <span className="text-[12px] font-semibold">Reorder</span>
+              </button>
+              <button className="flex items-center gap-1 text-on-surface-variant transition-colors hover:text-primary" type="button">
+                <MaterialIcon className="text-[20px]">drive_file_rename_outline</MaterialIcon>
+                <span className="text-[12px] font-semibold">Rename</span>
+              </button>
+            </div>
           </div>
-        </div>
+        ) : null}
       </main>
 
       <MobileBottomNav active="collections" className="md:hidden" />

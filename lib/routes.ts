@@ -5,7 +5,11 @@ export const routes = {
   search: "/search_discovery",
   collections: "/collections",
   profile: "/profile_page",
-  detail: "/meme_detail_view"
+  detail: "/meme_detail_view",
+  login: "/login",
+  signup: "/signup",
+  passwordReset: "/password-reset",
+  passwordResetConfirm: "/password-reset/confirm"
 } as const;
 
 export type RoutePath = (typeof routes)[keyof typeof routes];

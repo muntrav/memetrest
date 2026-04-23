@@ -4,6 +4,8 @@ import { DesktopPageShell } from "@/components/navigation/desktop-page-shell";
 import { MobileBottomNav } from "@/components/navigation/mobile-bottom-nav";
 import { AppImage } from "@/components/ui/app-image";
 import { MaterialIcon } from "@/components/ui/material-icon";
+import type { ViewerSummary } from "@/lib/auth/viewer";
+import { buildAuthHref } from "@/lib/auth/navigation";
 import type {
   FeedCardViewModel,
   SearchCreatorViewModel,
@@ -27,6 +29,7 @@ type SearchDiscoveryScreenProps = {
   memeResults: FeedCardViewModel[];
   creatorResults: SearchCreatorViewModel[];
   tagResults: SearchTagViewModel[];
+  viewer?: ViewerSummary | null;
 };
 
 function tabHref(tab: SearchTab, query: string) {
@@ -164,7 +167,8 @@ export function SearchDiscoveryScreen({
   trendingItems,
   memeResults,
   creatorResults,
-  tagResults
+  tagResults,
+  viewer = null
 }: SearchDiscoveryScreenProps) {
   const title = hasSearchQuery ? `Results for "${query}"` : "Explore Ideas";
   const subtitle = hasSearchQuery
@@ -177,12 +181,18 @@ export function SearchDiscoveryScreen({
         active="explore"
         description="Find memes by trend, tag, or creator without carrying the mobile navigation chrome into the desktop view."
         title="Search Discovery"
+        viewer={viewer}
         toolbar={
           <Link
-            className="h-12 w-12 overflow-hidden rounded-full border-2 border-primary/20"
-            href={routes.profile}
+            className={[
+              "flex items-center justify-center overflow-hidden",
+              viewer
+                ? "h-12 w-12 rounded-full border-2 border-primary/20"
+                : "rounded-full border border-outline-variant/40 px-4 py-3 text-sm font-semibold text-on-surface"
+            ].join(" ")}
+            href={viewer ? routes.profile : buildAuthHref(routes.login, routes.search)}
           >
-            <span className="sr-only">Open profile</span>
+            {viewer ? <span className="sr-only">Open profile</span> : "Sign in"}
           </Link>
         }
       >
@@ -292,8 +302,16 @@ export function SearchDiscoveryScreen({
               </span>
             </Link>
           </div>
-          <Link className="h-10 w-10 rounded-full border-2 border-primary/20" href={routes.profile}>
-            <span className="sr-only">Open profile</span>
+          <Link
+            className={[
+              "flex items-center justify-center overflow-hidden",
+              viewer
+                ? "h-10 w-10 rounded-full border-2 border-primary/20"
+                : "rounded-full border border-outline-variant/40 px-3 py-2 text-xs font-semibold text-on-surface"
+            ].join(" ")}
+            href={viewer ? routes.profile : buildAuthHref(routes.login, routes.search)}
+          >
+            {viewer ? <span className="sr-only">Open profile</span> : "Sign in"}
           </Link>
         </div>
       </nav>

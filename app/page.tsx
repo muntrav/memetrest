@@ -1,6 +1,7 @@
 import { HomeFeedMobileScreen } from "@/components/screens/home-feed-mobile-screen";
 import { HomeFeedWebScreen } from "@/components/screens/home-feed-web-screen";
 import { getOptionalServerSession } from "@/lib/auth/server-session";
+import { toViewerSummary } from "@/lib/auth/viewer";
 import {
   mapPostsToFeedCards,
   type FeedCardViewModel,
@@ -83,14 +84,15 @@ async function buildHomeFeedLanes(viewerUserId?: string): Promise<FeedLaneViewMo
 export default async function HomePage() {
   const authSession = await getOptionalServerSession();
   const feedLanes = await buildHomeFeedLanes(authSession?.user.id);
+  const viewer = toViewerSummary(authSession);
 
   return (
     <>
       <div className="hidden md:block">
-        <HomeFeedWebScreen lanes={feedLanes} />
+        <HomeFeedWebScreen lanes={feedLanes} viewer={viewer} />
       </div>
       <div className="md:hidden">
-        <HomeFeedMobileScreen lanes={feedLanes} />
+        <HomeFeedMobileScreen lanes={feedLanes} viewer={viewer} />
       </div>
     </>
   );

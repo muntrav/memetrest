@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SearchDiscoveryScreen } from "@/components/screens/search-discovery-screen";
 import { getOptionalServerSession } from "@/lib/auth/server-session";
+import { toViewerSummary } from "@/lib/auth/viewer";
 import {
   mapCreatorsToSearchResults,
   mapPostsToFeedCards,
@@ -76,6 +77,7 @@ export default async function SearchDiscoveryPage({
       query={query}
       tagResults={resultSet.tab === "tags" ? mapTagsToSearchResults(resultSet.items) : []}
       trendingItems={mapPostsToFeedCards(trendingFeed.items)}
+      viewer={toViewerSummary(authSession)}
     />
   );
 }

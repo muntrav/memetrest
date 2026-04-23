@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { MemeDetailViewScreen } from "@/components/screens/meme-detail-view-screen";
 import { authRepository } from "@/lib/auth/repository";
 import { getOptionalServerSession } from "@/lib/auth/server-session";
+import { toViewerSummary } from "@/lib/auth/viewer";
 import {
   mapPostDetailToFeedCard,
   mapPostsToFeedCards
@@ -96,6 +97,7 @@ export default async function MemeDetailViewPage({
       relatedItems={relatedItems.slice(0, 4)}
       statusDescription={statusDescription}
       statusTitle={statusTitle}
+      viewer={toViewerSummary(authSession)}
     />
   );
 }

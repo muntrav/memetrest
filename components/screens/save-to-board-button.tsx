@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { MaterialIcon } from "@/components/ui/material-icon";
+import { buildAuthHref } from "@/lib/auth/navigation";
 import { boardDetailHref, routes } from "@/lib/routes";
 import type { Board } from "@/lib/boards/types";
 
@@ -11,6 +12,7 @@ type SaveToBoardButtonProps = {
   postId: string;
   initialSavedBoardIds: string[];
   buttonClassName: string;
+  nextPath?: string;
 };
 
 type BoardsResponse = {
@@ -28,7 +30,8 @@ function formatButtonLabel(savedBoardIds: string[]) {
 export function SaveToBoardButton({
   postId,
   initialSavedBoardIds,
-  buttonClassName
+  buttonClassName,
+  nextPath
 }: SaveToBoardButtonProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -183,6 +186,24 @@ export function SaveToBoardButton({
                   <p className="mt-2 text-sm text-on-surface-variant">
                     Your saved boards are tied to an account session.
                   </p>
+                  <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+                    <Link
+                      className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 font-label-sm text-on-primary shadow-lg shadow-primary/20"
+                      href={buildAuthHref(routes.login, nextPath)}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <MaterialIcon>login</MaterialIcon>
+                      Sign in
+                    </Link>
+                    <Link
+                      className="inline-flex items-center gap-2 rounded-full border border-outline-variant/40 bg-white px-4 py-2 font-label-sm text-on-surface"
+                      href={buildAuthHref(routes.signup, nextPath)}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <MaterialIcon>person_add</MaterialIcon>
+                      Create account
+                    </Link>
+                  </div>
                 </div>
               ) : null}
 

@@ -9,7 +9,9 @@ const warmRoutes = [
   routes.search,
   routes.collections,
   routes.profile,
-  routes.detail
+  routes.detail,
+  routes.login,
+  routes.signup
 ] as const;
 
 export function RouteWarmup() {

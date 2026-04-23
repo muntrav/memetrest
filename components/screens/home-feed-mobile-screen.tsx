@@ -5,14 +5,17 @@ import Link from "next/link";
 import { MobileBottomNav } from "@/components/navigation/mobile-bottom-nav";
 import { AppImage } from "@/components/ui/app-image";
 import { MaterialIcon } from "@/components/ui/material-icon";
+import type { ViewerSummary } from "@/lib/auth/viewer";
+import { buildAuthHref } from "@/lib/auth/navigation";
 import type { FeedLaneViewModel } from "@/lib/posts/presentation";
 import { routes } from "@/lib/routes";
 
 type HomeFeedMobileScreenProps = {
   lanes: FeedLaneViewModel[];
+  viewer?: ViewerSummary | null;
 };
 
-export function HomeFeedMobileScreen({ lanes }: HomeFeedMobileScreenProps) {
+export function HomeFeedMobileScreen({ lanes, viewer = null }: HomeFeedMobileScreenProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeLaneKey, setActiveLaneKey] = useState(lanes[0]?.key ?? "all");
 
@@ -66,10 +69,15 @@ export function HomeFeedMobileScreen({ lanes }: HomeFeedMobileScreenProps) {
               </div>
             </div>
             <Link
-              className="h-10 w-10 overflow-hidden rounded-full border-2 border-primary-fixed transition-transform duration-200 hover:scale-105"
-              href={routes.profile}
+              className={[
+                "flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-105",
+                viewer
+                  ? "h-10 w-10 rounded-full border-2 border-primary-fixed"
+                  : "rounded-full border border-outline-variant/40 px-3 py-2 text-xs font-semibold text-on-surface"
+              ].join(" ")}
+              href={viewer ? routes.profile : buildAuthHref(routes.login, routes.home)}
             >
-              <span className="sr-only">Open profile</span>
+              {viewer ? <span className="sr-only">Open profile</span> : "Sign in"}
             </Link>
           </div>
         </header>
@@ -163,9 +171,12 @@ export function HomeFeedMobileScreen({ lanes }: HomeFeedMobileScreenProps) {
           ) : null}
         </main>
 
-        <button className="fixed bottom-24 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-on-primary shadow-2xl md:absolute md:bottom-24 md:right-6">
-          <MaterialIcon className="text-3xl">add</MaterialIcon>
-        </button>
+        <Link
+          className="fixed bottom-24 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-on-primary shadow-2xl md:absolute md:bottom-24 md:right-6"
+          href={viewer ? routes.profile : buildAuthHref(routes.signup, routes.home)}
+        >
+          <MaterialIcon className="text-3xl">{viewer ? "person" : "person_add"}</MaterialIcon>
+        </Link>
 
         <MobileBottomNav
           active="home"

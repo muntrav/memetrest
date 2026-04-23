@@ -7,12 +7,14 @@ import { AppImage } from "@/components/ui/app-image";
 import { MaterialIcon } from "@/components/ui/material-icon";
 import { BoardItemRemoveButton } from "@/components/screens/board-item-remove-button";
 import type { BoardDetail } from "@/lib/boards/types";
+import type { ViewerSummary } from "@/lib/auth/viewer";
 import { postDetailHref, routes } from "@/lib/routes";
 
 type BoardDetailScreenProps = {
   board: BoardDetail | null;
   statusTitle?: string | null;
   statusDescription?: string | null;
+  viewer?: ViewerSummary | null;
 };
 
 function formatSavedDate(value: string) {
@@ -123,7 +125,8 @@ function BoardItemCard({
 export function BoardDetailScreen({
   board,
   statusTitle,
-  statusDescription
+  statusDescription,
+  viewer = null
 }: BoardDetailScreenProps) {
   const resolvedStatusTitle = statusTitle ?? (board ? null : "Board unavailable");
   const resolvedStatusDescription =
@@ -140,6 +143,7 @@ export function BoardDetailScreen({
             : "Board detail keeps saved items, visibility, and removal actions in one place."
         }
         title={board?.name ?? "Board detail"}
+        viewer={viewer}
         toolbar={
           <>
             <BackButton

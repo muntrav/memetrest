@@ -6,14 +6,17 @@ import { DesktopSidebar } from "@/components/navigation/desktop-sidebar";
 import { MobileBottomNav } from "@/components/navigation/mobile-bottom-nav";
 import { AppImage } from "@/components/ui/app-image";
 import { MaterialIcon } from "@/components/ui/material-icon";
+import type { ViewerSummary } from "@/lib/auth/viewer";
+import { buildAuthHref } from "@/lib/auth/navigation";
 import type { FeedLaneViewModel } from "@/lib/posts/presentation";
 import { routes } from "@/lib/routes";
 
 type HomeFeedWebScreenProps = {
   lanes: FeedLaneViewModel[];
+  viewer?: ViewerSummary | null;
 };
 
-export function HomeFeedWebScreen({ lanes }: HomeFeedWebScreenProps) {
+export function HomeFeedWebScreen({ lanes, viewer = null }: HomeFeedWebScreenProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeLaneKey, setActiveLaneKey] = useState(lanes[0]?.key ?? "all");
 
@@ -42,7 +45,7 @@ export function HomeFeedWebScreen({ lanes }: HomeFeedWebScreenProps) {
 
   return (
     <div className="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container">
-      <DesktopSidebar active="home" />
+      <DesktopSidebar active="home" viewer={viewer} />
 
       <header className="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-white/20 bg-white/80 px-4 backdrop-blur-xl md:hidden">
         <Link href={routes.home}>
@@ -52,8 +55,16 @@ export function HomeFeedWebScreen({ lanes }: HomeFeedWebScreenProps) {
           <Link href={routes.search}>
             <MaterialIcon className="text-zinc-500">search</MaterialIcon>
           </Link>
-          <Link className="h-8 w-8 rounded-full bg-primary-container" href={routes.profile}>
-            <span className="sr-only">Go to profile</span>
+          <Link
+            className={[
+              "flex items-center justify-center overflow-hidden rounded-full",
+              viewer
+                ? "h-8 w-8 bg-primary-container"
+                : "rounded-full border border-outline-variant/40 px-3 py-1 text-xs font-semibold text-on-surface"
+            ].join(" ")}
+            href={viewer ? routes.profile : buildAuthHref(routes.login, routes.home)}
+          >
+            {viewer ? <span className="sr-only">Go to profile</span> : "Sign in"}
           </Link>
         </div>
       </header>
@@ -192,9 +203,12 @@ export function HomeFeedWebScreen({ lanes }: HomeFeedWebScreenProps) {
           </div>
         )}
 
-        <button className="fixed bottom-24 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-on-primary shadow-2xl md:hidden">
-          <MaterialIcon>add</MaterialIcon>
-        </button>
+        <Link
+          className="fixed bottom-24 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-on-primary shadow-2xl md:hidden"
+          href={viewer ? routes.profile : buildAuthHref(routes.signup, routes.home)}
+        >
+          <MaterialIcon>{viewer ? "person" : "person_add"}</MaterialIcon>
+        </Link>
       </main>
 
       <MobileBottomNav active="home" className="md:hidden" homeRoute={routes.home} />

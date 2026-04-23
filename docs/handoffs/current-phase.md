@@ -4,7 +4,7 @@ Last updated: 2026-04-23
 
 ## Current Phase
 
-Planning, solution architecture, data modeling, API contracts, backend implementation slice 1, live deployment/keepalive setup, browse UI integration, and content publishing slice 1 are complete for the current v1 baseline.
+Planning, solution architecture, data modeling, API contracts, backend implementation slice 1, live deployment/keepalive setup, browse UI integration, content publishing slice 1, and frontend auth/account entry are complete for the current v1 baseline.
 
 ## Completed Work
 
@@ -28,6 +28,10 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - added server-side session lookup for page-level auth-aware rendering and view-model mapping for live browse content
 - added temp image upload persistence, Supabase Storage signed upload intents, and `POST /api/v1/uploads/images`
 - added real post creation from uploaded images via `POST /api/v1/posts`, including image metadata extraction and checksum verification
+- added frontend auth pages for sign-in, sign-up, password reset request, and password reset confirm
+- added session-aware navigation/account chrome across the desktop sidebar and key mobile headers
+- replaced the mock profile page with a live session-backed account dashboard and auth-required states for anonymous profile/collections access
+- added protected-action auth prompts that route anonymous users from save/profile/collections surfaces into the new auth flow
 - added focused backend tests for password hashing and auth input validation
 - connected the workspace to the live Supabase project and verified migrations and auth flows against it
 - verified a full local end-to-end publish flow against Supabase: signup, upload intent, direct image upload, post creation, and post detail retrieval
@@ -52,11 +56,11 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 
 ## Expected Deliverables From Next Backend Slice
 
-- content/media repositories and services for image upload intent and post creation
 - follow and follow-request services for private profile access
 - admin moderation and seed-content route handlers
 - email delivery adapter for password reset before production
 - content and interaction backend slices on top of the now-live infra baseline
+- route handlers and persistence for follow/private-profile behavior that the new auth-aware frontend can consume next
 
 ## Open Risks
 
@@ -66,7 +70,7 @@ Planning, solution architecture, data modeling, API contracts, backend implement
 - temp uploads currently remain in their `temp/` object path after promotion; lifecycle cleanup and final object moves are still open
 - admin moderation actions need auditable write paths from day one
 - browse UI is now live for home, discovery, detail, collections, and board pages, but likes/follows/download/share still point to future slices
-- password reset currently creates persisted reset tokens, but email delivery is not wired yet
+- password reset currently creates persisted reset tokens, but email delivery is not wired yet, so confirm is still manual-token based
 - database-backed integration tests need a test Postgres/Supabase connection
 - there is no observability or alerting yet around heartbeat failures, deployment failures, or API incidents
 

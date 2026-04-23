@@ -1,5 +1,6 @@
 import React, { type ReactNode } from "react";
 import { DesktopSidebar } from "@/components/navigation/desktop-sidebar";
+import type { ViewerSummary } from "@/lib/auth/viewer";
 
 type DesktopPageShellProps = {
   active: "home" | "explore" | "collections" | "profile";
@@ -7,6 +8,7 @@ type DesktopPageShellProps = {
   description?: string;
   toolbar?: ReactNode;
   children: ReactNode;
+  viewer?: ViewerSummary | null;
 };
 
 export function DesktopPageShell({
@@ -14,11 +16,12 @@ export function DesktopPageShell({
   title,
   description,
   toolbar,
-  children
+  children,
+  viewer
 }: DesktopPageShellProps) {
   return (
     <div className="hidden min-h-screen bg-background text-on-background md:block">
-      <DesktopSidebar active={active} />
+      <DesktopSidebar active={active} viewer={viewer} />
       <main className="md:ml-24 lg:ml-64">
         <div className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
           <header className="mb-8 flex flex-wrap items-start justify-between gap-4 rounded-[32px] border border-white/30 bg-white/70 px-6 py-6 shadow-[0_20px_60px_rgba(129,39,207,0.08)] backdrop-blur-xl">
